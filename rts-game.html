@@ -454,6 +454,143 @@
             border-radius: 3px;
             border: 1px solid var(--gold-dark);
         }
+
+        /* Age Display */
+        #age-display {
+            background: linear-gradient(180deg, rgba(153, 50, 204, 0.3) 0%, rgba(75, 0, 130, 0.4) 100%);
+            border: 2px solid var(--gem-purple);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .age-name {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 0 2px 8px rgba(212, 168, 75, 0.5);
+            margin-bottom: 8px;
+        }
+
+        .age-advance-btn {
+            width: 100%;
+            padding: 8px 16px;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            font-weight: 700;
+            background: linear-gradient(180deg, var(--gem-purple) 0%, #4b0082 100%);
+            border: 2px solid var(--gold);
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .age-advance-btn:hover:not(.disabled) {
+            background: linear-gradient(180deg, #ba55d3 0%, var(--gem-purple) 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(153, 50, 204, 0.4);
+        }
+
+        .age-advance-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Upgrade Grid */
+        .upgrade-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .upgrade-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 6px;
+            background: linear-gradient(180deg, rgba(34, 139, 34, 0.4) 0%, rgba(0, 100, 0, 0.5) 100%);
+            border: 2px solid var(--food-green);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .upgrade-btn:hover:not(.disabled):not(.maxed) {
+            background: linear-gradient(180deg, rgba(50, 205, 50, 0.5) 0%, rgba(34, 139, 34, 0.6) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 139, 34, 0.3);
+        }
+
+        .upgrade-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #555;
+        }
+
+        .upgrade-btn.maxed {
+            background: linear-gradient(180deg, rgba(212, 168, 75, 0.4) 0%, rgba(139, 105, 20, 0.5) 100%);
+            border-color: var(--gold);
+            cursor: default;
+        }
+
+        .upgrade-icon {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+
+        .upgrade-name {
+            font-family: 'Almendra', serif;
+            font-size: 10px;
+            color: var(--parchment);
+            text-align: center;
+        }
+
+        .upgrade-level {
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-top: 2px;
+        }
+
+        .upgrade-cost {
+            font-size: 8px;
+            color: var(--parchment-dark);
+            margin-top: 2px;
+        }
+
+        .upgrade-btn.maxed .upgrade-cost {
+            color: var(--gold);
+        }
+
+        /* Stats Display in Selection */
+        .unit-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 11px;
+            color: var(--parchment-dark);
+        }
+
+        .stat-value {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .stat-bonus {
+            color: #90EE90;
+            font-size: 9px;
+        }
     </style>
 </head>
 <body>
@@ -497,6 +634,45 @@
 
             <!-- Build Panel -->
             <div id="build-panel">
+                <!-- Age/Tech Display -->
+                <div id="age-display">
+                    <div class="age-name" id="current-age">Stone Age</div>
+                    <button class="age-advance-btn" id="advance-age-btn" onclick="advanceAge()">
+                        Advance Age
+                    </button>
+                </div>
+
+                <!-- Upgrades Section -->
+                <div class="build-category">
+                    <div class="category-title">⬆️ Military Upgrades</div>
+                    <div class="upgrade-grid" id="upgrade-grid">
+                        <div class="upgrade-btn" data-upgrade="attack" onclick="applyUpgrade('attack')">
+                            <div class="upgrade-icon">⚔️</div>
+                            <div class="upgrade-name">Attack</div>
+                            <div class="upgrade-level" id="attack-level">Lv.0</div>
+                            <div class="upgrade-cost" id="attack-cost">100🌾 50🪙</div>
+                        </div>
+                        <div class="upgrade-btn" data-upgrade="defense" onclick="applyUpgrade('defense')">
+                            <div class="upgrade-icon">🛡️</div>
+                            <div class="upgrade-name">Defense</div>
+                            <div class="upgrade-level" id="defense-level">Lv.0</div>
+                            <div class="upgrade-cost" id="defense-cost">100🌾 75🪨</div>
+                        </div>
+                        <div class="upgrade-btn" data-upgrade="hp" onclick="applyUpgrade('hp')">
+                            <div class="upgrade-icon">❤️</div>
+                            <div class="upgrade-name">Vitality</div>
+                            <div class="upgrade-level" id="hp-level">Lv.0</div>
+                            <div class="upgrade-cost" id="hp-cost">150🌾 100🪵</div>
+                        </div>
+                        <div class="upgrade-btn" data-upgrade="speed" onclick="applyUpgrade('speed')">
+                            <div class="upgrade-icon">💨</div>
+                            <div class="upgrade-name">Speed</div>
+                            <div class="upgrade-level" id="speed-level">Lv.0</div>
+                            <div class="upgrade-cost" id="speed-cost">150🪙 5💎</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="panel-header">⚔️ BUILD ⚔️</div>
                 
                 <div class="build-category">
@@ -613,9 +789,14 @@
         <h3>🎮 Controls</h3>
         <p>
             <kbd>Left Click</kbd> Select / Place building<br>
-            <kbd>Right Click</kbd> Move units / Cancel<br>
-            <kbd>Drag</kbd> Select multiple units<br>
+            <kbd>Right Click</kbd> Move units / Attack enemy<br>
+            <kbd>WASD</kbd> / <kbd>Arrows</kbd> Pan camera<br>
             <kbd>Esc</kbd> Cancel current action
+        </p>
+        <h3>⬆️ Upgrades</h3>
+        <p>
+            Upgrade your army's Attack, Defense, HP, and Speed.<br>
+            Advance through ages to unlock more power!
         </p>
     </div>
 
@@ -924,8 +1105,213 @@
             resourceRates: { food: 0, wood: 0, stone: 0, gold: 0, gems: 0 },
             enemyBuildings: [],
             enemyUnits: [],
-            gameTime: 0
+            gameTime: 0,
+            // Upgrade system
+            upgrades: {
+                attackLevel: 0,
+                defenseLevel: 0,
+                hpLevel: 0,
+                speedLevel: 0
+            },
+            // Age/Tech progression
+            currentAge: 0, // 0: Stone Age, 1: Bronze Age, 2: Iron Age, 3: Imperial Age
+            ages: ['Stone Age', 'Bronze Age', 'Iron Age', 'Imperial Age']
         };
+
+        // Upgrade definitions
+        const UPGRADES = {
+            attack: {
+                name: 'Attack Upgrade',
+                icon: '⚔️',
+                maxLevel: 5,
+                bonusPerLevel: 3,
+                costs: [
+                    { food: 100, gold: 50 },
+                    { food: 200, gold: 100 },
+                    { food: 350, gold: 200 },
+                    { food: 500, gold: 350 },
+                    { food: 750, gold: 500 }
+                ],
+                description: 'Increases attack damage of all units by +3 per level'
+            },
+            defense: {
+                name: 'Defense Upgrade',
+                icon: '🛡️',
+                maxLevel: 5,
+                bonusPerLevel: 2,
+                costs: [
+                    { food: 100, stone: 75 },
+                    { food: 200, stone: 150 },
+                    { food: 350, stone: 250 },
+                    { food: 500, stone: 400 },
+                    { food: 750, stone: 600 }
+                ],
+                description: 'Increases defense of all units by +2 per level'
+            },
+            hp: {
+                name: 'Vitality Upgrade',
+                icon: '❤️',
+                maxLevel: 5,
+                bonusPerLevel: 15,
+                costs: [
+                    { food: 150, wood: 100 },
+                    { food: 300, wood: 200 },
+                    { food: 500, wood: 350 },
+                    { food: 700, wood: 500 },
+                    { food: 1000, wood: 750 }
+                ],
+                description: 'Increases max HP of all units by +15 per level'
+            },
+            speed: {
+                name: 'Speed Upgrade',
+                icon: '💨',
+                maxLevel: 3,
+                bonusPerLevel: 0.3,
+                costs: [
+                    { gold: 150, gems: 5 },
+                    { gold: 300, gems: 15 },
+                    { gold: 500, gems: 30 }
+                ],
+                description: 'Increases movement speed of all units by +0.3 per level'
+            }
+        };
+
+        // Age advancement costs
+        const AGE_COSTS = [
+            { food: 500, wood: 300, stone: 200 },       // To Bronze Age
+            { food: 1000, wood: 600, stone: 400, gold: 200 }, // To Iron Age
+            { food: 2000, wood: 1200, stone: 800, gold: 500, gems: 50 } // To Imperial Age
+        ];
+
+        // ============================================
+        // UPGRADE UTILITY FUNCTIONS
+        // ============================================
+        function getUnitStats(unit) {
+            const baseDef = UNITS[unit.type];
+            const isPlayer = unit.owner === 'player';
+
+            // Only player units get upgrades
+            const attackBonus = isPlayer ? gameState.upgrades.attackLevel * UPGRADES.attack.bonusPerLevel : 0;
+            const defenseBonus = isPlayer ? gameState.upgrades.defenseLevel * UPGRADES.defense.bonusPerLevel : 0;
+            const hpBonus = isPlayer ? gameState.upgrades.hpLevel * UPGRADES.hp.bonusPerLevel : 0;
+            const speedBonus = isPlayer ? gameState.upgrades.speedLevel * UPGRADES.speed.bonusPerLevel : 0;
+
+            return {
+                attack: baseDef.attack + attackBonus,
+                defense: baseDef.defense + defenseBonus,
+                maxHp: baseDef.hp + hpBonus,
+                speed: baseDef.speed + speedBonus,
+                range: baseDef.range
+            };
+        }
+
+        function applyUpgrade(upgradeType) {
+            const upgrade = UPGRADES[upgradeType];
+            const levelKey = upgradeType + 'Level';
+            const currentLevel = gameState.upgrades[levelKey];
+
+            if (currentLevel >= upgrade.maxLevel) {
+                showMessage('Maximum level reached!', 'error');
+                return false;
+            }
+
+            const cost = upgrade.costs[currentLevel];
+            if (!canAfford(cost)) {
+                showMessage('Not enough resources!', 'error');
+                return false;
+            }
+
+            spendResources(cost);
+            gameState.upgrades[levelKey]++;
+
+            // Apply HP bonus to existing units
+            if (upgradeType === 'hp') {
+                for (const unit of gameState.units) {
+                    const hpIncrease = UPGRADES.hp.bonusPerLevel;
+                    unit.maxHp += hpIncrease;
+                    unit.hp += hpIncrease; // Also heal by the bonus amount
+                }
+            }
+
+            showMessage(`${upgrade.name} Level ${gameState.upgrades[levelKey]}!`, 'success');
+            updateUpgradeUI();
+            return true;
+        }
+
+        function advanceAge() {
+            if (gameState.currentAge >= 3) {
+                showMessage('Already at maximum age!', 'error');
+                return false;
+            }
+
+            const cost = AGE_COSTS[gameState.currentAge];
+            if (!canAfford(cost)) {
+                showMessage('Not enough resources for age advancement!', 'error');
+                return false;
+            }
+
+            spendResources(cost);
+            gameState.currentAge++;
+            showMessage(`Advanced to ${gameState.ages[gameState.currentAge]}!`, 'success');
+            updateUpgradeUI();
+            return true;
+        }
+
+        // ============================================
+        // DEATH AND REMOVAL FUNCTIONS
+        // ============================================
+        function removeBuilding(building) {
+            const def = BUILDINGS[building.type];
+
+            // Clear map tiles
+            for (let dy = 0; dy < def.height; dy++) {
+                for (let dx = 0; dx < def.width; dx++) {
+                    const mapX = building.x + dx;
+                    const mapY = building.y + dy;
+                    if (mapX >= 0 && mapX < CONFIG.MAP_WIDTH && mapY >= 0 && mapY < CONFIG.MAP_HEIGHT) {
+                        gameState.map[mapY][mapX].building = null;
+                    }
+                }
+            }
+
+            // Remove from appropriate array
+            if (building.owner === 'player') {
+                const idx = gameState.buildings.indexOf(building);
+                if (idx >= 0) {
+                    gameState.buildings.splice(idx, 1);
+                    if (def.populationProvided) {
+                        gameState.maxPopulation -= def.populationProvided;
+                    }
+                }
+            } else {
+                const idx = gameState.enemyBuildings.indexOf(building);
+                if (idx >= 0) {
+                    gameState.enemyBuildings.splice(idx, 1);
+                }
+            }
+        }
+
+        function removeUnit(unit) {
+            if (unit.owner === 'player') {
+                const idx = gameState.units.indexOf(unit);
+                if (idx >= 0) {
+                    gameState.population -= UNITS[unit.type].population;
+                    gameState.units.splice(idx, 1);
+                }
+            } else {
+                const idx = gameState.enemyUnits.indexOf(unit);
+                if (idx >= 0) {
+                    gameState.enemyUnits.splice(idx, 1);
+                }
+            }
+
+            // Clear any units targeting this one
+            for (const u of [...gameState.units, ...gameState.enemyUnits]) {
+                if (u.attacking === unit) {
+                    u.attacking = null;
+                }
+            }
+        }
 
         // ============================================
         // CANVAS SETUP
@@ -1112,19 +1498,26 @@
         // ============================================
         function createUnit(type, x, y, owner = 'player') {
             const unitDef = UNITS[type];
-            
+
+            // Calculate HP with upgrades for player units
+            let maxHp = unitDef.hp;
+            if (owner === 'player') {
+                maxHp += gameState.upgrades.hpLevel * UPGRADES.hp.bonusPerLevel;
+            }
+
             const unit = {
                 id: Date.now() + Math.random(),
                 type: type,
                 x: x,
                 y: y,
                 owner: owner,
-                hp: unitDef.hp,
-                maxHp: unitDef.hp,
+                hp: maxHp,
+                maxHp: maxHp,
                 targetX: null,
                 targetY: null,
                 attacking: null,
-                moveProgress: 0
+                moveProgress: 0,
+                lastAttackTime: 0
             };
 
             if (owner === 'player') {
@@ -1198,18 +1591,38 @@
                 ctx.fillStyle = '#fff';
                 ctx.fillText(def.icon, screenX + width / 2, screenY + height / 2);
 
-                // Health bar
-                if (building.hp < building.maxHp) {
-                    const hpWidth = width * 0.8;
-                    const hpHeight = 6;
-                    const hpX = screenX + (width - hpWidth) / 2;
-                    const hpY = screenY - 10;
-                    
-                    ctx.fillStyle = '#333';
-                    ctx.fillRect(hpX, hpY, hpWidth, hpHeight);
-                    ctx.fillStyle = building.hp > building.maxHp * 0.3 ? '#4CAF50' : '#f44336';
-                    ctx.fillRect(hpX, hpY, hpWidth * (building.hp / building.maxHp), hpHeight);
-                }
+                // Health bar - always show for visibility
+                const hpWidth = width * 0.8;
+                const hpHeight = 8;
+                const hpX = screenX + (width - hpWidth) / 2;
+                const hpY = screenY - 18;
+
+                // Background
+                ctx.fillStyle = '#222';
+                ctx.fillRect(hpX - 1, hpY - 1, hpWidth + 2, hpHeight + 2);
+
+                // HP bar
+                const hpPercent = Math.max(0, building.hp / building.maxHp);
+                let hpColor;
+                if (hpPercent > 0.6) hpColor = '#4CAF50';
+                else if (hpPercent > 0.3) hpColor = '#FFC107';
+                else hpColor = '#f44336';
+
+                ctx.fillStyle = '#444';
+                ctx.fillRect(hpX, hpY, hpWidth, hpHeight);
+                ctx.fillStyle = hpColor;
+                ctx.fillRect(hpX, hpY, hpWidth * hpPercent, hpHeight);
+
+                // Numeric HP display
+                ctx.font = 'bold 10px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = '#fff';
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                const hpText = `${Math.ceil(building.hp)}/${building.maxHp}`;
+                ctx.strokeText(hpText, screenX + width / 2, hpY + hpHeight / 2);
+                ctx.fillText(hpText, screenX + width / 2, hpY + hpHeight / 2);
 
                 // Construction progress
                 if (!building.isComplete) {
@@ -1254,17 +1667,44 @@
                 ctx.fillStyle = '#fff';
                 ctx.fillText(def.icon, screenX + CONFIG.TILE_SIZE / 2, screenY + CONFIG.TILE_SIZE / 2);
 
-                // Health bar
-                if (unit.hp < unit.maxHp) {
-                    const hpWidth = CONFIG.TILE_SIZE * 0.8;
-                    const hpHeight = 4;
-                    const hpX = screenX + (CONFIG.TILE_SIZE - hpWidth) / 2;
-                    const hpY = screenY - 6;
-                    
-                    ctx.fillStyle = '#333';
-                    ctx.fillRect(hpX, hpY, hpWidth, hpHeight);
-                    ctx.fillStyle = unit.hp > unit.maxHp * 0.3 ? '#4CAF50' : '#f44336';
-                    ctx.fillRect(hpX, hpY, hpWidth * (unit.hp / unit.maxHp), hpHeight);
+                // Health bar - always show for visibility
+                const unitHpWidth = CONFIG.TILE_SIZE * 0.9;
+                const unitHpHeight = 6;
+                const unitHpX = screenX + (CONFIG.TILE_SIZE - unitHpWidth) / 2;
+                const unitHpY = screenY - 12;
+
+                // Background
+                ctx.fillStyle = '#222';
+                ctx.fillRect(unitHpX - 1, unitHpY - 1, unitHpWidth + 2, unitHpHeight + 2);
+
+                // HP bar
+                const unitHpPercent = Math.max(0, unit.hp / unit.maxHp);
+                let unitHpColor;
+                if (unitHpPercent > 0.6) unitHpColor = '#4CAF50';
+                else if (unitHpPercent > 0.3) unitHpColor = '#FFC107';
+                else unitHpColor = '#f44336';
+
+                ctx.fillStyle = '#444';
+                ctx.fillRect(unitHpX, unitHpY, unitHpWidth, unitHpHeight);
+                ctx.fillStyle = unitHpColor;
+                ctx.fillRect(unitHpX, unitHpY, unitHpWidth * unitHpPercent, unitHpHeight);
+
+                // Numeric HP display
+                ctx.font = 'bold 9px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = '#fff';
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                const unitHpText = `${Math.ceil(unit.hp)}`;
+                ctx.strokeText(unitHpText, screenX + CONFIG.TILE_SIZE / 2, unitHpY + unitHpHeight / 2);
+                ctx.fillText(unitHpText, screenX + CONFIG.TILE_SIZE / 2, unitHpY + unitHpHeight / 2);
+
+                // Show attack indicator when in combat
+                if (unit.attacking) {
+                    ctx.font = '12px serif';
+                    ctx.fillStyle = '#ff4444';
+                    ctx.fillText('⚔️', screenX + CONFIG.TILE_SIZE - 5, screenY + 5);
                 }
 
                 // Selection indicator
@@ -1551,6 +1991,56 @@
             });
         }
 
+        function updateUpgradeUI() {
+            // Update age display
+            document.getElementById('current-age').textContent = gameState.ages[gameState.currentAge];
+
+            const ageBtn = document.getElementById('advance-age-btn');
+            if (gameState.currentAge >= 3) {
+                ageBtn.textContent = 'Max Age';
+                ageBtn.classList.add('disabled');
+            } else {
+                const cost = AGE_COSTS[gameState.currentAge];
+                const costStr = Object.entries(cost).map(([r, v]) => {
+                    const icons = { food: '🌾', wood: '🪵', stone: '🪨', gold: '🪙', gems: '💎' };
+                    return `${v}${icons[r]}`;
+                }).join(' ');
+                ageBtn.innerHTML = `Advance to ${gameState.ages[gameState.currentAge + 1]}<br><small>${costStr}</small>`;
+                ageBtn.classList.toggle('disabled', !canAfford(cost));
+            }
+
+            // Update upgrade buttons
+            const upgradeTypes = ['attack', 'defense', 'hp', 'speed'];
+            for (const type of upgradeTypes) {
+                const upgrade = UPGRADES[type];
+                const levelKey = type + 'Level';
+                const currentLevel = gameState.upgrades[levelKey];
+                const btn = document.querySelector(`.upgrade-btn[data-upgrade="${type}"]`);
+
+                if (btn) {
+                    const levelEl = document.getElementById(`${type}-level`);
+                    const costEl = document.getElementById(`${type}-cost`);
+
+                    levelEl.textContent = `Lv.${currentLevel}`;
+
+                    if (currentLevel >= upgrade.maxLevel) {
+                        costEl.textContent = 'MAX';
+                        btn.classList.add('maxed');
+                        btn.classList.remove('disabled');
+                    } else {
+                        const cost = upgrade.costs[currentLevel];
+                        const costStr = Object.entries(cost).map(([r, v]) => {
+                            const icons = { food: '🌾', wood: '🪵', stone: '🪨', gold: '🪙', gems: '💎' };
+                            return `${v}${icons[r]}`;
+                        }).join(' ');
+                        costEl.textContent = costStr;
+                        btn.classList.remove('maxed');
+                        btn.classList.toggle('disabled', !canAfford(cost));
+                    }
+                }
+            }
+        }
+
         function updateSelectionUI() {
             const portrait = document.getElementById('sel-portrait');
             const name = document.getElementById('sel-name');
@@ -1580,11 +2070,27 @@
             } else if (gameState.selectedUnits.length > 0) {
                 const unit = gameState.selectedUnits[0];
                 const def = UNITS[unit.type];
+                const unitStats = getUnitStats(unit);
+
                 portrait.textContent = def.icon;
-                name.textContent = gameState.selectedUnits.length > 1 
+                name.textContent = gameState.selectedUnits.length > 1
                     ? `${gameState.selectedUnits.length} units selected`
                     : def.name;
-                stats.textContent = `HP: ${unit.hp}/${unit.maxHp} | ATK: ${def.attack} | DEF: ${def.defense}`;
+
+                // Show stats with upgrade bonuses highlighted
+                const attackBonus = unitStats.attack - def.attack;
+                const defenseBonus = unitStats.defense - def.defense;
+                const hpBonus = unit.maxHp - def.hp;
+
+                let statsHtml = `HP: ${Math.ceil(unit.hp)}/${unit.maxHp}`;
+                if (hpBonus > 0) statsHtml += `<span style="color:#90EE90">(+${hpBonus})</span>`;
+                statsHtml += ` | ATK: ${unitStats.attack}`;
+                if (attackBonus > 0) statsHtml += `<span style="color:#90EE90">(+${attackBonus})</span>`;
+                statsHtml += ` | DEF: ${unitStats.defense}`;
+                if (defenseBonus > 0) statsHtml += `<span style="color:#90EE90">(+${defenseBonus})</span>`;
+                statsHtml += ` | SPD: ${unitStats.speed.toFixed(1)}`;
+
+                stats.innerHTML = statsHtml;
                 actions.innerHTML = '';
             } else {
                 portrait.textContent = '-';
@@ -1697,50 +2203,66 @@
                 gameState.resources[resource] += rate * deltaTime / 1000;
             }
 
+            // Collect units to remove (to avoid modifying array while iterating)
+            const unitsToRemove = [];
+            const buildingsToRemove = [];
+
             // Unit movement and combat
             for (const unit of [...gameState.units, ...gameState.enemyUnits]) {
-                const def = UNITS[unit.type];
-                
+                // Skip if unit is dead
+                if (unit.hp <= 0) continue;
+
+                const stats = getUnitStats(unit);
+                const baseDef = UNITS[unit.type];
+
                 if (unit.attacking) {
-                    // Check if target still exists
-                    const targetExists = unit.attacking.hp > 0;
+                    // Check if target still exists and is alive
+                    const targetExists = unit.attacking && unit.attacking.hp > 0;
                     if (!targetExists) {
                         unit.attacking = null;
                         continue;
                     }
-                    
+
                     // Move towards target or attack if in range
                     let targetX, targetY;
-                    if (unit.attacking.type && BUILDINGS[unit.attacking.type]) {
-                        // It's a building
-                        targetX = unit.attacking.x;
-                        targetY = unit.attacking.y;
+                    if (BUILDINGS[unit.attacking.type]) {
+                        // It's a building - target center
+                        const bDef = BUILDINGS[unit.attacking.type];
+                        targetX = unit.attacking.x + Math.floor(bDef.width / 2);
+                        targetY = unit.attacking.y + Math.floor(bDef.height / 2);
                     } else {
                         targetX = unit.attacking.x;
                         targetY = unit.attacking.y;
                     }
-                    
-                    const dist = Math.abs(unit.x - targetX) + Math.abs(unit.y - targetY);
-                    
-                    if (dist <= def.range) {
-                        // Attack
-                        unit.attacking.hp -= def.attack * deltaTime / 1000;
-                        
+
+                    const dist = Math.sqrt(Math.pow(unit.x - targetX, 2) + Math.pow(unit.y - targetY, 2));
+
+                    if (dist <= stats.range + 0.5) {
+                        // Attack with proper damage calculation
+                        const attackDamage = stats.attack;
+                        let targetDefense = 0;
+
+                        // Get target's defense
+                        if (unit.attacking.type && UNITS[unit.attacking.type]) {
+                            const targetStats = getUnitStats(unit.attacking);
+                            targetDefense = targetStats.defense;
+                        }
+
+                        // Calculate actual damage (minimum 1)
+                        const actualDamage = Math.max(1, attackDamage - targetDefense * 0.5);
+                        unit.attacking.hp -= actualDamage * deltaTime / 1000;
+
+                        // Check for death
                         if (unit.attacking.hp <= 0) {
-                            // Target destroyed
-                            if (unit.attacking.owner === 'enemy') {
-                                const idx = gameState.enemyUnits.indexOf(unit.attacking);
-                                if (idx >= 0) gameState.enemyUnits.splice(idx, 1);
-                                const bIdx = gameState.enemyBuildings.indexOf(unit.attacking);
-                                if (bIdx >= 0) gameState.enemyBuildings.splice(bIdx, 1);
+                            unit.attacking.hp = 0;
+                            const targetName = UNITS[unit.attacking.type]?.name || BUILDINGS[unit.attacking.type]?.name || 'Target';
+
+                            if (BUILDINGS[unit.attacking.type]) {
+                                buildingsToRemove.push(unit.attacking);
+                                showMessage(`${targetName} destroyed!`, unit.owner === 'player' ? 'success' : 'error');
                             } else {
-                                const idx = gameState.units.indexOf(unit.attacking);
-                                if (idx >= 0) {
-                                    gameState.population -= UNITS[unit.attacking.type].population;
-                                    gameState.units.splice(idx, 1);
-                                }
-                                const bIdx = gameState.buildings.indexOf(unit.attacking);
-                                if (bIdx >= 0) gameState.buildings.splice(bIdx, 1);
+                                unitsToRemove.push(unit.attacking);
+                                showMessage(`${targetName} killed!`, unit.owner === 'player' ? 'success' : 'error');
                             }
                             unit.attacking = null;
                         }
@@ -1750,22 +2272,66 @@
                         unit.targetY = targetY;
                     }
                 }
-                
+
+                // Auto-aggro: Units attack nearby enemies automatically
+                if (!unit.attacking && !unit.targetX) {
+                    const enemyUnits = unit.owner === 'player' ? gameState.enemyUnits : gameState.units;
+                    for (const enemy of enemyUnits) {
+                        if (enemy.hp <= 0) continue;
+                        const dist = Math.sqrt(Math.pow(unit.x - enemy.x, 2) + Math.pow(unit.y - enemy.y, 2));
+                        if (dist <= stats.range + 2) {
+                            unit.attacking = enemy;
+                            break;
+                        }
+                    }
+                }
+
+                // Movement
                 if (unit.targetX !== null && unit.targetY !== null) {
                     const dx = unit.targetX - unit.x;
                     const dy = unit.targetY - unit.y;
-                    
+
                     if (Math.abs(dx) < 0.1 && Math.abs(dy) < 0.1) {
                         unit.x = unit.targetX;
                         unit.y = unit.targetY;
                         unit.targetX = null;
                         unit.targetY = null;
                     } else {
-                        const speed = def.speed * deltaTime / 1000;
+                        const speed = stats.speed * deltaTime / 1000;
                         if (Math.abs(dx) > Math.abs(dy)) {
                             unit.x += Math.sign(dx) * Math.min(Math.abs(dx), speed);
                         } else {
                             unit.y += Math.sign(dy) * Math.min(Math.abs(dy), speed);
+                        }
+                    }
+                }
+            }
+
+            // Remove dead units and buildings
+            for (const unit of unitsToRemove) {
+                removeUnit(unit);
+            }
+            for (const building of buildingsToRemove) {
+                removeBuilding(building);
+            }
+
+            // Tower attacks
+            for (const building of [...gameState.buildings, ...gameState.enemyBuildings]) {
+                if (building.type === 'tower' && building.isComplete && building.hp > 0) {
+                    const def = BUILDINGS.tower;
+                    const enemyUnits = building.owner === 'player' ? gameState.enemyUnits : gameState.units;
+
+                    for (const enemy of enemyUnits) {
+                        if (enemy.hp <= 0) continue;
+                        const dist = Math.sqrt(Math.pow(building.x - enemy.x, 2) + Math.pow(building.y - enemy.y, 2));
+                        if (dist <= def.range) {
+                            enemy.hp -= def.attack * deltaTime / 1000;
+                            if (enemy.hp <= 0) {
+                                enemy.hp = 0;
+                                removeUnit(enemy);
+                                showMessage(`Tower killed ${UNITS[enemy.type].name}!`, building.owner === 'player' ? 'success' : 'error');
+                            }
+                            break; // Tower attacks one at a time
                         }
                     }
                 }
@@ -1795,6 +2361,7 @@
 
             updateResourceDisplay();
             updateBuildButtons();
+            updateUpgradeUI();
         }
 
         // ============================================
@@ -1822,10 +2389,12 @@
             updateResourceDisplay();
             updateBuildButtons();
             updateSelectionUI();
-            
+            updateUpgradeUI();
+
             showMessage('Welcome to Realm of Conquest!', 'success');
             showMessage('Build your empire and destroy the enemy!', 'info');
-            
+            showMessage('Upgrade your army to become stronger!', 'info');
+
             requestAnimationFrame(gameLoop);
         }
 
