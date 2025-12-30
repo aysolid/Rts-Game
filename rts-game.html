@@ -272,6 +272,12 @@
             cursor: not-allowed;
         }
 
+        .action-btn.active {
+            background: linear-gradient(180deg, rgba(34, 139, 34, 0.7) 0%, rgba(0, 100, 0, 0.9) 100%);
+            border-color: #90EE90;
+            box-shadow: 0 0 8px rgba(144, 238, 144, 0.5);
+        }
+
         #minimap-container {
             width: 180px;
             height: 60px;
@@ -1372,6 +1378,20 @@
                 splashDamage: true,
                 bonusVs: 'building',
                 description: 'Heavy siege. Devastating vs buildings.'
+            },
+            beast: {
+                name: 'Beast',
+                icon: '🐉',
+                cost: { food: 500, gold: 500, gems: 50 },
+                hp: 800,
+                attack: 100,
+                defense: 30,
+                speed: 3,
+                range: 2,
+                trainTime: 30000,
+                population: 8,
+                splashDamage: true,
+                description: 'Legendary beast. The mightiest unit in existence.'
             }
         };
 
@@ -2036,6 +2056,15 @@
                     case 'trebuchet':
                         this.drawSiege(ctx, x, y, size, baseColor, darkColor);
                         break;
+                    case 'beast':
+                        this.drawBeast(ctx, x, y, size, baseColor, darkColor);
+                        break;
+                    case 'spearman':
+                        this.drawSpearman(ctx, x, y, size, baseColor, darkColor);
+                        break;
+                    case 'crossbowman':
+                        this.drawCrossbowman(ctx, x, y, size, baseColor, darkColor);
+                        break;
                     default:
                         this.drawGenericUnit(ctx, x, y, size, baseColor, darkColor);
                 }
@@ -2166,6 +2195,125 @@
                 ctx.stroke();
             },
 
+            drawBeast(ctx, x, y, size, color, dark) {
+                const cx = x + size / 2;
+                const cy = y + size / 2;
+                const r = size * 0.45;
+
+                // Dragon/beast body - larger than other units
+                ctx.fillStyle = '#8B0080'; // Purple for beast
+                ctx.beginPath();
+                ctx.ellipse(cx, cy + r * 0.1, r * 1.1, r * 0.8, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Head
+                ctx.fillStyle = '#6B0060';
+                ctx.beginPath();
+                ctx.arc(cx + r * 0.6, cy - r * 0.3, r * 0.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Horns
+                ctx.strokeStyle = '#FFD700';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(cx + r * 0.5, cy - r * 0.6);
+                ctx.lineTo(cx + r * 0.3, cy - r * 1.0);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(cx + r * 0.8, cy - r * 0.5);
+                ctx.lineTo(cx + r * 1.0, cy - r * 0.9);
+                ctx.stroke();
+
+                // Wings
+                ctx.fillStyle = '#9B30FF';
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(cx - r * 0.8, cy - r * 0.9);
+                ctx.lineTo(cx - r * 0.3, cy - r * 0.2);
+                ctx.closePath();
+                ctx.fill();
+
+                // Eyes (glowing)
+                ctx.fillStyle = '#FF4500';
+                ctx.beginPath();
+                ctx.arc(cx + r * 0.7, cy - r * 0.4, r * 0.12, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Tail
+                ctx.strokeStyle = '#8B0080';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(cx - r * 0.6, cy + r * 0.1);
+                ctx.quadraticCurveTo(cx - r * 1.2, cy + r * 0.5, cx - r * 0.8, cy + r * 0.8);
+                ctx.stroke();
+            },
+
+            drawSpearman(ctx, x, y, size, color, dark) {
+                const cx = x + size / 2;
+                const cy = y + size / 2;
+                const r = size * 0.35;
+
+                // Body
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Spear
+                ctx.strokeStyle = '#8B4513';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(cx - r * 0.2, cy + r * 0.5);
+                ctx.lineTo(cx + r * 0.3, cy - r * 1.0);
+                ctx.stroke();
+
+                // Spear tip
+                ctx.fillStyle = '#C0C0C0';
+                ctx.beginPath();
+                ctx.moveTo(cx + r * 0.3, cy - r * 1.0);
+                ctx.lineTo(cx + r * 0.15, cy - r * 0.7);
+                ctx.lineTo(cx + r * 0.45, cy - r * 0.7);
+                ctx.closePath();
+                ctx.fill();
+            },
+
+            drawCrossbowman(ctx, x, y, size, color, dark) {
+                const cx = x + size / 2;
+                const cy = y + size / 2;
+                const r = size * 0.35;
+
+                // Body
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Crossbow frame
+                ctx.strokeStyle = '#8B4513';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(cx - r * 0.6, cy);
+                ctx.lineTo(cx + r * 0.8, cy);
+                ctx.stroke();
+
+                // Crossbow bow
+                ctx.strokeStyle = '#4a3728';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(cx + r * 0.4, cy - r * 0.6);
+                ctx.lineTo(cx + r * 0.6, cy);
+                ctx.lineTo(cx + r * 0.4, cy + r * 0.6);
+                ctx.stroke();
+
+                // Bolt
+                ctx.strokeStyle = '#C0C0C0';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(cx - r * 0.4, cy);
+                ctx.lineTo(cx + r * 0.5, cy);
+                ctx.stroke();
+            },
+
             drawGenericUnit(ctx, x, y, size, color, dark) {
                 const cx = x + size / 2;
                 const cy = y + size / 2;
@@ -2235,7 +2383,7 @@
             help: () => {
                 return `Available commands:
   resources [amount] - Add resources (default: 10000)
-  spawn [unit] [count] - Spawn units (swordsman, archer, cavalry, knight, etc.)
+  spawn [unit] [count] - Spawn units (swordsman, archer, cavalry, knight, beast, etc.)
   kill [all|enemies|player] - Kill units
   god - Toggle invincibility
   reveal - Reveal entire map (disable fog)
@@ -2254,7 +2402,11 @@
   sound [on|off] - Toggle sound
   fog [on|off] - Toggle fog of war
   ai [on|off] - Toggle enemy AI
-  stats - Show game statistics`;
+  stats - Show game statistics
+
+Special Units:
+  beast - The mightiest unit (800 HP, 100 ATK, 30 DEF)
+  Example: spawn beast 3`;
             },
 
             resources: (args) => {
@@ -2954,7 +3106,10 @@
                 targetY: null,
                 attacking: null,
                 moveProgress: 0,
-                lastAttackTime: 0
+                lastAttackTime: 0,
+                stance: 'aggressive', // aggressive, defensive, patrol, hold
+                patrolPoints: [], // For patrol mode
+                patrolIndex: 0
             };
 
             if (owner === 'player') {
@@ -3219,6 +3374,30 @@
                 }
             }
 
+            // Render selection box if dragging
+            if (isDragging && !gameState.placingBuilding) {
+                const rect = canvas.getBoundingClientRect();
+                const currentMouseX = mouseX;
+                const currentMouseY = mouseY;
+                const dragDistX = Math.abs(currentMouseX - dragStartX);
+                const dragDistY = Math.abs(currentMouseY - dragStartY);
+
+                if (dragDistX > 10 || dragDistY > 10) {
+                    const boxX = Math.min(dragStartX, currentMouseX) - rect.left;
+                    const boxY = Math.min(dragStartY, currentMouseY) - rect.top;
+                    const boxWidth = Math.abs(currentMouseX - dragStartX);
+                    const boxHeight = Math.abs(currentMouseY - dragStartY);
+
+                    ctx.strokeStyle = '#00ff00';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 3]);
+                    ctx.strokeRect(boxX, boxY, boxWidth, boxHeight);
+                    ctx.setLineDash([]);
+                    ctx.fillStyle = 'rgba(0, 255, 0, 0.1)';
+                    ctx.fillRect(boxX, boxY, boxWidth, boxHeight);
+                }
+            }
+
             // Render minimap
             renderMinimap();
         }
@@ -3321,25 +3500,57 @@
                         showMessage('Cannot build here!', 'error');
                     }
                 } else if (pos) {
-                    // Selection
-                    const tile = gameState.map[pos.y][pos.x];
-                    
-                    // Check for unit
-                    const clickedUnit = [...gameState.units].find(u => u.x === pos.x && u.y === pos.y);
-                    if (clickedUnit) {
-                        gameState.selectedUnits = [clickedUnit];
-                        gameState.selectedBuilding = null;
-                        updateSelectionUI();
-                    }
-                    // Check for building
-                    else if (tile.building && tile.building.owner === 'player') {
-                        gameState.selectedBuilding = tile.building;
-                        gameState.selectedUnits = [];
-                        updateSelectionUI();
+                    // Check if this was a box selection drag
+                    const rect = canvas.getBoundingClientRect();
+                    const dragEndX = e.clientX;
+                    const dragEndY = e.clientY;
+                    const dragDistX = Math.abs(dragEndX - dragStartX);
+                    const dragDistY = Math.abs(dragEndY - dragStartY);
+
+                    if (dragDistX > 10 || dragDistY > 10) {
+                        // Box selection - calculate world coordinates
+                        const startWorldX = (Math.min(dragStartX, dragEndX) - rect.left + gameState.camera.x) / CONFIG.TILE_SIZE;
+                        const startWorldY = (Math.min(dragStartY, dragEndY) - rect.top + gameState.camera.y) / CONFIG.TILE_SIZE;
+                        const endWorldX = (Math.max(dragStartX, dragEndX) - rect.left + gameState.camera.x) / CONFIG.TILE_SIZE;
+                        const endWorldY = (Math.max(dragStartY, dragEndY) - rect.top + gameState.camera.y) / CONFIG.TILE_SIZE;
+
+                        // Find all player units within the box
+                        const selectedUnits = gameState.units.filter(u => {
+                            const unitX = u.x;
+                            const unitY = u.y;
+                            return unitX >= startWorldX && unitX <= endWorldX &&
+                                   unitY >= startWorldY && unitY <= endWorldY;
+                        });
+
+                        if (selectedUnits.length > 0) {
+                            gameState.selectedUnits = selectedUnits;
+                            gameState.selectedBuilding = null;
+                            showMessage(`Selected ${selectedUnits.length} unit(s)`, 'success');
+                            updateSelectionUI();
+                        }
                     } else {
-                        gameState.selectedBuilding = null;
-                        gameState.selectedUnits = [];
-                        updateSelectionUI();
+                        // Single click selection
+                        const tile = gameState.map[pos.y][pos.x];
+
+                        // Check for unit - use floor to handle floating point positions
+                        const clickedUnit = [...gameState.units].find(u =>
+                            Math.floor(u.x) === pos.x && Math.floor(u.y) === pos.y
+                        );
+                        if (clickedUnit) {
+                            gameState.selectedUnits = [clickedUnit];
+                            gameState.selectedBuilding = null;
+                            updateSelectionUI();
+                        }
+                        // Check for building
+                        else if (tile.building && tile.building.owner === 'player') {
+                            gameState.selectedBuilding = tile.building;
+                            gameState.selectedUnits = [];
+                            updateSelectionUI();
+                        } else {
+                            gameState.selectedBuilding = null;
+                            gameState.selectedUnits = [];
+                            updateSelectionUI();
+                        }
                     }
                 }
                 isDragging = false;
@@ -3350,28 +3561,53 @@
                     gameState.placingBuilding = null;
                     updateBuildButtons();
                 } else if (gameState.selectedUnits.length > 0) {
-                    // Move selected units
+                    // Check if targeting an enemy (use Math.floor for float positions)
+                    const enemyUnit = gameState.enemyUnits.find(u =>
+                        Math.floor(u.x) === pos.x && Math.floor(u.y) === pos.y
+                    );
+                    const enemyBuilding = gameState.enemyBuildings.find(b => {
+                        const def = BUILDINGS[b.type];
+                        return pos.x >= b.x && pos.x < b.x + def.width &&
+                               pos.y >= b.y && pos.y < b.y + def.height;
+                    });
+
                     for (const unit of gameState.selectedUnits) {
-                        unit.targetX = pos.x;
-                        unit.targetY = pos.y;
-                        
-                        // Check if targeting an enemy
-                        const enemyUnit = gameState.enemyUnits.find(u => u.x === pos.x && u.y === pos.y);
-                        const enemyBuilding = gameState.enemyBuildings.find(b => {
-                            const def = BUILDINGS[b.type];
-                            return pos.x >= b.x && pos.x < b.x + def.width &&
-                                   pos.y >= b.y && pos.y < b.y + def.height;
-                        });
-                        
+                        const stance = unit.stance || 'aggressive';
+
+                        // Handle patrol mode - add patrol point
+                        if (stance === 'patrol') {
+                            if (!unit.patrolPoints) unit.patrolPoints = [];
+                            // Add current position if first point
+                            if (unit.patrolPoints.length === 0) {
+                                unit.patrolPoints.push({ x: Math.floor(unit.x), y: Math.floor(unit.y) });
+                            }
+                            // Add the clicked position
+                            unit.patrolPoints.push({ x: pos.x, y: pos.y });
+                            // Limit to 8 patrol points
+                            if (unit.patrolPoints.length > 8) {
+                                unit.patrolPoints = unit.patrolPoints.slice(-8);
+                            }
+                        } else {
+                            // Normal move command
+                            unit.targetX = pos.x;
+                            unit.targetY = pos.y;
+                        }
+
                         if (enemyUnit) {
                             unit.attacking = enemyUnit;
                         } else if (enemyBuilding) {
                             unit.attacking = enemyBuilding;
-                        } else {
+                        } else if (stance !== 'patrol') {
                             unit.attacking = null;
                         }
                     }
-                    showMessage('Units moving', 'success');
+
+                    const stance = gameState.selectedUnits[0]?.stance || 'aggressive';
+                    if (stance === 'patrol') {
+                        showMessage(`Patrol point added (${gameState.selectedUnits[0].patrolPoints.length} points)`, 'success');
+                    } else {
+                        showMessage('Units moving', 'success');
+                    }
                 }
             }
         });
@@ -3588,13 +3824,67 @@
                 statsHtml += ` | SPD: ${unitStats.speed.toFixed(1)}`;
 
                 stats.innerHTML = statsHtml;
+
+                // Show unit command buttons
                 actions.innerHTML = '';
+
+                const stances = [
+                    { id: 'aggressive', icon: '⚔️', label: 'Attack (auto-attack enemies)' },
+                    { id: 'defensive', icon: '🛡️', label: 'Defend (attack only in range)' },
+                    { id: 'patrol', icon: '🔄', label: 'Patrol (move between points)' },
+                    { id: 'hold', icon: '🚫', label: 'Hold Position (no movement)' }
+                ];
+
+                for (const stance of stances) {
+                    const btn = document.createElement('button');
+                    btn.className = 'action-btn' + (unit.stance === stance.id ? ' active' : '');
+                    btn.textContent = stance.icon;
+                    btn.title = stance.label;
+                    btn.onclick = () => setUnitStance(stance.id);
+                    actions.appendChild(btn);
+                }
+
+                // Stop button
+                const stopBtn = document.createElement('button');
+                stopBtn.className = 'action-btn';
+                stopBtn.textContent = '⏹️';
+                stopBtn.title = 'Stop all actions';
+                stopBtn.onclick = () => stopUnits();
+                actions.appendChild(stopBtn);
+
             } else {
                 portrait.textContent = '-';
                 name.textContent = 'No Selection';
                 stats.textContent = 'Click on a building or unit';
                 actions.innerHTML = '';
             }
+        }
+
+        function setUnitStance(stance) {
+            for (const unit of gameState.selectedUnits) {
+                unit.stance = stance;
+                if (stance === 'patrol' && unit.patrolPoints.length === 0) {
+                    // Set current position as first patrol point
+                    unit.patrolPoints = [{ x: Math.floor(unit.x), y: Math.floor(unit.y) }];
+                }
+                if (stance === 'hold') {
+                    unit.targetX = null;
+                    unit.targetY = null;
+                    unit.attacking = null;
+                }
+            }
+            showMessage(`Stance set to ${stance}`, 'success');
+            updateSelectionUI();
+        }
+
+        function stopUnits() {
+            for (const unit of gameState.selectedUnits) {
+                unit.targetX = null;
+                unit.targetY = null;
+                unit.attacking = null;
+                unit.patrolPoints = [];
+            }
+            showMessage('Units stopped', 'success');
         }
 
         function showMessage(text, type = 'info') {
@@ -3770,21 +4060,48 @@
                     }
                 }
 
-                // Auto-aggro: Units attack nearby enemies automatically
-                if (!unit.attacking && !unit.targetX) {
-                    const enemyUnits = unit.owner === 'player' ? gameState.enemyUnits : gameState.units;
-                    for (const enemy of enemyUnits) {
-                        if (enemy.hp <= 0) continue;
-                        const dist = Math.sqrt(Math.pow(unit.x - enemy.x, 2) + Math.pow(unit.y - enemy.y, 2));
-                        if (dist <= stats.range + 2) {
-                            unit.attacking = enemy;
-                            break;
+                // Auto-aggro: Units attack nearby enemies based on stance
+                const stance = unit.stance || 'aggressive';
+
+                if (stance !== 'hold') {
+                    if (!unit.attacking) {
+                        const enemyUnits = unit.owner === 'player' ? gameState.enemyUnits : gameState.units;
+
+                        // Aggressive: attack enemies in detection range
+                        // Defensive: attack only enemies in attack range
+                        const detectionRange = stance === 'defensive' ? stats.range : stats.range + 4;
+
+                        for (const enemy of enemyUnits) {
+                            if (enemy.hp <= 0) continue;
+                            const dist = Math.sqrt(Math.pow(unit.x - enemy.x, 2) + Math.pow(unit.y - enemy.y, 2));
+                            if (dist <= detectionRange) {
+                                unit.attacking = enemy;
+                                break;
+                            }
                         }
+                    }
+
+                    // Patrol behavior
+                    if (stance === 'patrol' && !unit.attacking && unit.patrolPoints && unit.patrolPoints.length >= 2) {
+                        const currentTarget = unit.patrolPoints[unit.patrolIndex || 0];
+                        const distToPoint = Math.sqrt(
+                            Math.pow(unit.x - currentTarget.x, 2) +
+                            Math.pow(unit.y - currentTarget.y, 2)
+                        );
+
+                        if (distToPoint < 0.5) {
+                            // Reached patrol point, move to next
+                            unit.patrolIndex = ((unit.patrolIndex || 0) + 1) % unit.patrolPoints.length;
+                        }
+
+                        const nextTarget = unit.patrolPoints[unit.patrolIndex || 0];
+                        unit.targetX = nextTarget.x;
+                        unit.targetY = nextTarget.y;
                     }
                 }
 
-                // Movement
-                if (unit.targetX !== null && unit.targetY !== null) {
+                // Movement (skip if hold stance)
+                if (stance !== 'hold' && unit.targetX !== null && unit.targetY !== null) {
                     const dx = unit.targetX - unit.x;
                     const dy = unit.targetY - unit.y;
 
