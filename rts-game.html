@@ -1134,6 +1134,189 @@
             margin-bottom: 10px;
         }
 
+        /* Diplomacy Panel */
+        #diplomacy-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 700px;
+            max-height: 80vh;
+            background: rgba(20, 10, 5, 0.98);
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            display: none;
+            flex-direction: column;
+            z-index: 2600;
+            overflow: hidden;
+        }
+
+        #diplomacy-panel.active {
+            display: flex;
+        }
+
+        .diplomacy-content {
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .faction-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--gold-dark);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .faction-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .faction-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faction-color-badge {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid var(--parchment);
+        }
+
+        .faction-name {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            color: var(--parchment);
+        }
+
+        .faction-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .faction-status.war {
+            background: #8B0000;
+            color: #ff6b6b;
+        }
+
+        .faction-status.peace {
+            background: #2E7D32;
+            color: #90EE90;
+        }
+
+        .faction-status.allied {
+            background: #1565C0;
+            color: #64B5F6;
+        }
+
+        .faction-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: var(--parchment-dark);
+        }
+
+        .faction-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .diplo-btn {
+            font-family: 'Almendra', serif;
+            font-size: 12px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .diplo-btn.war {
+            background: linear-gradient(180deg, #8B0000 0%, #4a0000 100%);
+            border: 2px solid #DC143C;
+            color: #fff;
+        }
+
+        .diplo-btn.war:hover {
+            background: linear-gradient(180deg, #a00000 0%, #600000 100%);
+        }
+
+        .diplo-btn.peace {
+            background: linear-gradient(180deg, #2E7D32 0%, #1B5E20 100%);
+            border: 2px solid #4CAF50;
+            color: #fff;
+        }
+
+        .diplo-btn.peace:hover {
+            background: linear-gradient(180deg, #388E3C 0%, #2E7D32 100%);
+        }
+
+        .diplo-btn.alliance {
+            background: linear-gradient(180deg, #1565C0 0%, #0D47A1 100%);
+            border: 2px solid #2196F3;
+            color: #fff;
+        }
+
+        .diplo-btn.alliance:hover {
+            background: linear-gradient(180deg, #1976D2 0%, #1565C0 100%);
+        }
+
+        .diplo-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .tribute-input {
+            width: 80px;
+            padding: 6px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--gold-dark);
+            border-radius: 4px;
+            color: var(--parchment);
+            font-size: 12px;
+        }
+
+        .pending-offer {
+            background: rgba(212, 168, 75, 0.2);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .pending-offer-text {
+            font-size: 13px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        #diplomacy-btn {
+            background: linear-gradient(180deg, rgba(100, 100, 180, 0.6) 0%, rgba(50, 50, 100, 0.8) 100%);
+            border: 2px solid #6464B4;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        #diplomacy-btn:hover {
+            background: linear-gradient(180deg, rgba(130, 130, 210, 0.7) 0%, rgba(100, 100, 180, 0.9) 100%);
+        }
+
         .tech-tree-content {
             display: flex;
             gap: 20px;
@@ -1376,6 +1559,7 @@
                         Advance Age
                     </button>
                     <button id="tech-tree-btn" onclick="toggleTechTree()">📜 View Tech Tree</button>
+                    <button id="diplomacy-btn" onclick="toggleDiplomacy()">🤝 Diplomacy (G)</button>
                 </div>
 
                 <!-- Upgrades Section -->
@@ -1582,6 +1766,17 @@
         </div>
     </div>
 
+    <!-- Diplomacy Panel -->
+    <div id="diplomacy-panel">
+        <div class="console-header">
+            <span class="console-title">🤝 Diplomacy</span>
+            <button class="console-close" onclick="toggleDiplomacy()">&times;</button>
+        </div>
+        <div class="diplomacy-content" id="diplomacy-content">
+            <!-- Generated by JS -->
+        </div>
+    </div>
+
     <script>
         // ============================================
         // GAME CONFIGURATION
@@ -1641,6 +1836,424 @@
             'The Red Empire', 'The Orange Legion', 'The Purple Realm',
             'The Teal Dynasty', 'The Brown Horde', 'The Gray Alliance', 'The Violet Kingdom'
         ];
+
+        // ============================================
+        // DIPLOMACY SYSTEM
+        // ============================================
+        const DIPLOMATIC_STATES = {
+            WAR: 'war',
+            PEACE: 'peace',
+            ALLIED: 'allied'
+        };
+
+        // Diplomacy relations - tracks player's relation with each AI
+        const diplomacy = {
+            relations: {}, // { aiId: { state: 'peace', turnsAtPeace: 0, tributePaid: 0 } }
+
+            initialize() {
+                this.relations = {};
+                for (const ai of aiPlayers) {
+                    this.relations[ai.id] = {
+                        state: DIPLOMATIC_STATES.PEACE, // Start at peace
+                        turnsAtPeace: 0,
+                        turnsAtWar: 0,
+                        tributeReceived: 0,
+                        tributePaid: 0,
+                        lastWarDeclaration: 0
+                    };
+                }
+            },
+
+            getRelation(aiId) {
+                return this.relations[aiId]?.state || DIPLOMATIC_STATES.PEACE;
+            },
+
+            isAtWar(aiId) {
+                return this.getRelation(aiId) === DIPLOMATIC_STATES.WAR;
+            },
+
+            isAllied(aiId) {
+                return this.getRelation(aiId) === DIPLOMATIC_STATES.ALLIED;
+            },
+
+            declareWar(aiId) {
+                if (!this.relations[aiId]) return;
+                const prevState = this.relations[aiId].state;
+                this.relations[aiId].state = DIPLOMATIC_STATES.WAR;
+                this.relations[aiId].turnsAtWar = 0;
+                this.relations[aiId].lastWarDeclaration = Date.now();
+
+                const ai = aiPlayers.find(a => a.id === aiId);
+                if (ai) {
+                    showMessage(`You declared WAR on ${ai.name}!`, 'error');
+                    soundSystem.play('battle');
+                }
+                updateDiplomacyUI();
+            },
+
+            offerPeace(aiId, tributeAmount = 0) {
+                if (!this.relations[aiId]) return false;
+                if (this.relations[aiId].state !== DIPLOMATIC_STATES.WAR) return false;
+
+                const ai = aiPlayers.find(a => a.id === aiId);
+                if (!ai) return false;
+
+                // AI decides whether to accept peace based on difficulty and tribute
+                const acceptChance = this.calculatePeaceAcceptance(ai, tributeAmount);
+
+                if (Math.random() < acceptChance) {
+                    // Deduct tribute
+                    if (tributeAmount > 0) {
+                        if (gameState.resources.gold < tributeAmount) {
+                            showMessage('Not enough gold for tribute!', 'error');
+                            return false;
+                        }
+                        gameState.resources.gold -= tributeAmount;
+                        ai.resources.gold += tributeAmount;
+                        this.relations[aiId].tributePaid += tributeAmount;
+                    }
+
+                    this.relations[aiId].state = DIPLOMATIC_STATES.PEACE;
+                    this.relations[aiId].turnsAtPeace = 0;
+                    showMessage(`${ai.name} accepted your peace offer!`, 'success');
+                    updateDiplomacyUI();
+                    return true;
+                } else {
+                    showMessage(`${ai.name} rejected your peace offer!`, 'error');
+                    return false;
+                }
+            },
+
+            calculatePeaceAcceptance(ai, tribute) {
+                let chance = 0.3; // Base 30% chance
+
+                // More tribute = higher chance
+                chance += Math.min(tribute / 500, 0.4); // Up to +40% for 500+ gold
+
+                // Easier difficulty = more likely to accept
+                if (ai.difficulty === 'easy') chance += 0.2;
+                if (ai.difficulty === 'hard') chance -= 0.2;
+
+                // If AI is losing (few units), more likely to accept
+                if (ai.units.length < 3) chance += 0.3;
+
+                // If been at war long, more likely to accept
+                const warDuration = (Date.now() - this.relations[ai.id].lastWarDeclaration) / 60000;
+                chance += Math.min(warDuration / 10, 0.2);
+
+                return Math.min(Math.max(chance, 0.1), 0.9);
+            },
+
+            offerAlliance(aiId, tributeAmount = 0) {
+                if (!this.relations[aiId]) return false;
+                if (this.relations[aiId].state === DIPLOMATIC_STATES.WAR) {
+                    showMessage('Cannot form alliance while at war!', 'error');
+                    return false;
+                }
+
+                const ai = aiPlayers.find(a => a.id === aiId);
+                if (!ai) return false;
+
+                // Alliance requires significant tribute and good relations
+                const minTribute = 200;
+                if (tributeAmount < minTribute) {
+                    showMessage(`Alliance requires at least ${minTribute} gold tribute!`, 'error');
+                    return false;
+                }
+
+                if (gameState.resources.gold < tributeAmount) {
+                    showMessage('Not enough gold for tribute!', 'error');
+                    return false;
+                }
+
+                // Acceptance based on difficulty
+                let acceptChance = 0.4 + (tributeAmount - minTribute) / 1000;
+                if (ai.difficulty === 'easy') acceptChance += 0.3;
+                if (ai.difficulty === 'hard') acceptChance -= 0.2;
+
+                // Longer peace = higher chance
+                acceptChance += Math.min(this.relations[aiId].turnsAtPeace / 100, 0.2);
+
+                if (Math.random() < acceptChance) {
+                    gameState.resources.gold -= tributeAmount;
+                    ai.resources.gold += tributeAmount;
+                    this.relations[aiId].state = DIPLOMATIC_STATES.ALLIED;
+                    this.relations[aiId].tributePaid += tributeAmount;
+                    showMessage(`${ai.name} is now your ALLY!`, 'success');
+                    updateDiplomacyUI();
+                    return true;
+                } else {
+                    showMessage(`${ai.name} rejected your alliance offer!`, 'error');
+                    return false;
+                }
+            },
+
+            breakAlliance(aiId) {
+                if (!this.relations[aiId]) return;
+                if (this.relations[aiId].state !== DIPLOMATIC_STATES.ALLIED) return;
+
+                this.relations[aiId].state = DIPLOMATIC_STATES.PEACE;
+                const ai = aiPlayers.find(a => a.id === aiId);
+                if (ai) {
+                    showMessage(`Alliance with ${ai.name} has ended.`, 'info');
+                }
+                updateDiplomacyUI();
+            },
+
+            // Called by AI to declare war on player
+            aiDeclareWar(aiId) {
+                if (!this.relations[aiId]) return;
+                if (this.relations[aiId].state === DIPLOMATIC_STATES.WAR) return;
+
+                this.relations[aiId].state = DIPLOMATIC_STATES.WAR;
+                this.relations[aiId].turnsAtWar = 0;
+                this.relations[aiId].lastWarDeclaration = Date.now();
+
+                const ai = aiPlayers.find(a => a.id === aiId);
+                if (ai) {
+                    showMessage(`${ai.name} has declared WAR on you!`, 'error');
+                    soundSystem.play('battle');
+                }
+                updateDiplomacyUI();
+            },
+
+            // Called by AI to offer peace
+            aiOfferPeace(aiId, tributeAmount = 0) {
+                if (!this.relations[aiId]) return;
+                if (this.relations[aiId].state !== DIPLOMATIC_STATES.WAR) return;
+
+                const ai = aiPlayers.find(a => a.id === aiId);
+                if (!ai) return;
+
+                // Store pending peace offer
+                this.relations[aiId].pendingPeaceOffer = {
+                    tribute: tributeAmount,
+                    timestamp: Date.now()
+                };
+
+                showMessage(`${ai.name} offers peace with ${tributeAmount} gold tribute!`, 'info');
+                updateDiplomacyUI();
+            },
+
+            acceptAIPeaceOffer(aiId) {
+                if (!this.relations[aiId]?.pendingPeaceOffer) return;
+
+                const ai = aiPlayers.find(a => a.id === aiId);
+                const tribute = this.relations[aiId].pendingPeaceOffer.tribute;
+
+                gameState.resources.gold += tribute;
+                this.relations[aiId].tributeReceived += tribute;
+                this.relations[aiId].state = DIPLOMATIC_STATES.PEACE;
+                this.relations[aiId].turnsAtPeace = 0;
+                delete this.relations[aiId].pendingPeaceOffer;
+
+                showMessage(`Peace with ${ai.name}! Received ${tribute} gold.`, 'success');
+                updateDiplomacyUI();
+            },
+
+            rejectAIPeaceOffer(aiId) {
+                if (!this.relations[aiId]?.pendingPeaceOffer) return;
+                delete this.relations[aiId].pendingPeaceOffer;
+
+                const ai = aiPlayers.find(a => a.id === aiId);
+                showMessage(`Rejected peace offer from ${ai.name}.`, 'info');
+                updateDiplomacyUI();
+            },
+
+            update(deltaTime) {
+                // Update peace/war timers
+                for (const aiId in this.relations) {
+                    const rel = this.relations[aiId];
+                    if (rel.state === DIPLOMATIC_STATES.PEACE || rel.state === DIPLOMATIC_STATES.ALLIED) {
+                        rel.turnsAtPeace += deltaTime / 1000;
+                    } else if (rel.state === DIPLOMATIC_STATES.WAR) {
+                        rel.turnsAtWar += deltaTime / 1000;
+                    }
+                }
+            }
+        };
+
+        // ============================================
+        // DIPLOMACY UI FUNCTIONS
+        // ============================================
+        function toggleDiplomacy() {
+            const panel = document.getElementById('diplomacy-panel');
+            panel.classList.toggle('active');
+            if (panel.classList.contains('active')) {
+                updateDiplomacyUI();
+            }
+        }
+
+        function updateDiplomacyUI() {
+            const content = document.getElementById('diplomacy-content');
+            if (!content) return;
+
+            let html = '';
+
+            for (const ai of aiPlayers) {
+                const rel = diplomacy.relations[ai.id];
+                if (!rel) continue;
+
+                const statusClass = rel.state;
+                const statusText = rel.state === DIPLOMATIC_STATES.WAR ? '⚔️ At War' :
+                                  rel.state === DIPLOMATIC_STATES.ALLIED ? '🤝 Allied' : '☮️ Peace';
+
+                html += `
+                    <div class="faction-card">
+                        <div class="faction-header">
+                            <div class="faction-info">
+                                <div class="faction-color-badge" style="background: ${ai.color}"></div>
+                                <div>
+                                    <div class="faction-name">${ai.name}</div>
+                                    <div style="font-size: 11px; color: var(--parchment-dark);">
+                                        Difficulty: ${ai.difficulty.charAt(0).toUpperCase() + ai.difficulty.slice(1)}
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="faction-status ${statusClass}">${statusText}</span>
+                        </div>
+                        <div class="faction-stats">
+                            <span>🏰 ${ai.buildings.length} buildings</span>
+                            <span>⚔️ ${ai.units.length} units</span>
+                            <span>💰 ~${Math.floor(ai.resources.gold)} gold</span>
+                        </div>
+                        <div class="faction-actions">
+                            ${getDiplomacyActions(ai, rel)}
+                        </div>
+                        ${getPendingOfferUI(ai, rel)}
+                    </div>
+                `;
+            }
+
+            if (aiPlayers.length === 0) {
+                html = '<p style="color: var(--parchment-dark); text-align: center;">No factions to negotiate with.</p>';
+            }
+
+            content.innerHTML = html;
+        }
+
+        function getDiplomacyActions(ai, rel) {
+            let actions = '';
+
+            if (rel.state === DIPLOMATIC_STATES.PEACE) {
+                actions += `
+                    <button class="diplo-btn war" onclick="diplomacy.declareWar(${ai.id})">
+                        ⚔️ Declare War
+                    </button>
+                    <span style="display: flex; align-items: center; gap: 5px;">
+                        <input type="number" class="tribute-input" id="alliance-tribute-${ai.id}"
+                               value="200" min="200" step="50" placeholder="Gold">
+                        <button class="diplo-btn alliance" onclick="offerAlliance(${ai.id})">
+                            🤝 Offer Alliance
+                        </button>
+                    </span>
+                `;
+            } else if (rel.state === DIPLOMATIC_STATES.WAR) {
+                actions += `
+                    <span style="display: flex; align-items: center; gap: 5px;">
+                        <input type="number" class="tribute-input" id="peace-tribute-${ai.id}"
+                               value="0" min="0" step="50" placeholder="Gold">
+                        <button class="diplo-btn peace" onclick="offerPeace(${ai.id})">
+                            ☮️ Offer Peace
+                        </button>
+                    </span>
+                `;
+            } else if (rel.state === DIPLOMATIC_STATES.ALLIED) {
+                actions += `
+                    <button class="diplo-btn war" onclick="diplomacy.breakAlliance(${ai.id}); diplomacy.declareWar(${ai.id})">
+                        ⚔️ Break Alliance & Declare War
+                    </button>
+                    <button class="diplo-btn" style="background: #555; border-color: #777; color: #ccc;"
+                            onclick="diplomacy.breakAlliance(${ai.id})">
+                        End Alliance
+                    </button>
+                `;
+            }
+
+            return actions;
+        }
+
+        function getPendingOfferUI(ai, rel) {
+            if (!rel.pendingPeaceOffer) return '';
+
+            return `
+                <div class="pending-offer">
+                    <div class="pending-offer-text">
+                        ${ai.name} offers peace with ${rel.pendingPeaceOffer.tribute} gold tribute!
+                    </div>
+                    <button class="diplo-btn peace" onclick="diplomacy.acceptAIPeaceOffer(${ai.id})">
+                        ✓ Accept
+                    </button>
+                    <button class="diplo-btn war" onclick="diplomacy.rejectAIPeaceOffer(${ai.id})">
+                        ✗ Reject
+                    </button>
+                </div>
+            `;
+        }
+
+        function offerPeace(aiId) {
+            const tribute = parseInt(document.getElementById(`peace-tribute-${aiId}`)?.value) || 0;
+            diplomacy.offerPeace(aiId, tribute);
+        }
+
+        function offerAlliance(aiId) {
+            const tribute = parseInt(document.getElementById(`alliance-tribute-${aiId}`)?.value) || 200;
+            diplomacy.offerAlliance(aiId, tribute);
+        }
+
+        // ============================================
+        // MOUSE EDGE SCROLLING
+        // ============================================
+        const edgeScroll = {
+            enabled: true,
+            edgeSize: 30, // pixels from edge to trigger scroll
+            scrollSpeed: 12,
+            currentMouseX: 0,
+            currentMouseY: 0
+        };
+
+        function updateEdgeScrolling() {
+            if (!edgeScroll.enabled || !GAME_SETTINGS.gameStarted || GAME_SETTINGS.gamePaused) return;
+
+            const canvas = document.getElementById('game-canvas');
+            if (!canvas) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = edgeScroll.currentMouseX;
+            const mouseY = edgeScroll.currentMouseY;
+
+            // Check if mouse is within canvas bounds
+            if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > rect.bottom) {
+                return;
+            }
+
+            const relX = mouseX - rect.left;
+            const relY = mouseY - rect.top;
+            const speed = edgeScroll.scrollSpeed;
+
+            // Scroll left
+            if (relX < edgeScroll.edgeSize) {
+                gameState.camera.x = Math.max(0, gameState.camera.x - speed);
+            }
+            // Scroll right
+            if (relX > rect.width - edgeScroll.edgeSize) {
+                gameState.camera.x = Math.min(CONFIG.MAP_WIDTH * CONFIG.TILE_SIZE - canvas.width, gameState.camera.x + speed);
+            }
+            // Scroll up
+            if (relY < edgeScroll.edgeSize) {
+                gameState.camera.y = Math.max(0, gameState.camera.y - speed);
+            }
+            // Scroll down
+            if (relY > rect.height - edgeScroll.edgeSize) {
+                gameState.camera.y = Math.min(CONFIG.MAP_HEIGHT * CONFIG.TILE_SIZE - canvas.height, gameState.camera.y + speed);
+            }
+        }
+
+        // Track mouse position globally
+        document.addEventListener('mousemove', (e) => {
+            edgeScroll.currentMouseX = e.clientX;
+            edgeScroll.currentMouseY = e.clientY;
+        });
 
         // ============================================
         // MENU FUNCTIONS
@@ -1844,7 +2457,8 @@
                     id: ai.id, name: ai.name, color: ai.color, difficulty: ai.difficulty,
                     resources: { ...ai.resources }, state: ai.state,
                     unitCount: ai.units.length, buildingCount: ai.buildings.length
-                }))
+                })),
+                diplomacy: { ...diplomacy.relations }
             };
 
             localStorage.setItem(`rts_save_${slotNum}`, JSON.stringify(saveData));
@@ -1967,6 +2581,11 @@
                 }
             }
 
+            // Consider peace if at war and losing
+            if (diplomacy.isAtWar(ai.id)) {
+                aiConsiderPeace(ai);
+            }
+
             // State machine
             switch (ai.state) {
                 case 'building':
@@ -2063,6 +2682,13 @@
         }
 
         function aiCommandAttack(ai) {
+            // Only attack if at war
+            if (!diplomacy.isAtWar(ai.id)) {
+                // Consider declaring war based on aggressiveness
+                aiConsiderDeclareWar(ai);
+                return;
+            }
+
             // Find player units/buildings to attack
             const targets = [...gameState.units, ...gameState.buildings];
             if (targets.length === 0) return;
@@ -2075,6 +2701,59 @@
                     unit.targetY = target.y;
                     unit.attacking = target;
                 }
+            }
+        }
+
+        function aiConsiderDeclareWar(ai) {
+            // AI considers declaring war based on aggressiveness and game state
+            const rel = diplomacy.relations[ai.id];
+            if (!rel || rel.state === DIPLOMATIC_STATES.WAR) return;
+
+            // Don't break alliances easily
+            if (rel.state === DIPLOMATIC_STATES.ALLIED) {
+                // Very rare for AI to break alliance
+                if (Math.random() > 0.001 * ai.settings.aggressiveness) return;
+            }
+
+            // Calculate war likelihood
+            let warChance = 0.001 * ai.settings.aggressiveness;
+
+            // More likely if AI has many units
+            if (ai.units.length >= 8) warChance += 0.002;
+            if (ai.units.length >= 15) warChance += 0.003;
+
+            // More likely over time at peace
+            warChance += Math.min(rel.turnsAtPeace / 100000, 0.005);
+
+            // Hard AI more aggressive
+            if (ai.difficulty === 'hard') warChance *= 2;
+            if (ai.difficulty === 'easy') warChance *= 0.3;
+
+            if (Math.random() < warChance) {
+                diplomacy.aiDeclareWar(ai.id);
+            }
+        }
+
+        function aiConsiderPeace(ai) {
+            // AI considers offering peace if losing
+            const rel = diplomacy.relations[ai.id];
+            if (!rel || rel.state !== DIPLOMATIC_STATES.WAR) return;
+
+            // Only consider peace if AI is struggling
+            if (ai.units.length > 3 && ai.buildings.length > 2) return;
+
+            let peaceChance = 0.01;
+            if (ai.units.length < 2) peaceChance += 0.05;
+            if (ai.buildings.length < 2) peaceChance += 0.05;
+
+            // Easier AI more likely to offer peace
+            if (ai.difficulty === 'easy') peaceChance *= 2;
+            if (ai.difficulty === 'hard') peaceChance *= 0.5;
+
+            if (Math.random() < peaceChance) {
+                // Offer tribute based on AI resources
+                const tribute = Math.floor(ai.resources.gold * 0.3);
+                diplomacy.aiOfferPeace(ai.id, tribute);
             }
         }
 
@@ -4854,6 +5533,10 @@ Special Units:
                     // Toggle tech tree
                     toggleTechTree();
                     break;
+                case 'g':
+                    // Toggle diplomacy panel
+                    toggleDiplomacy();
+                    break;
             }
         });
 
@@ -5234,12 +5917,33 @@ Special Units:
                     }
                 }
 
-                // Auto-aggro: Units attack nearby enemies based on stance
+                // Auto-aggro: Units attack nearby enemies based on stance and diplomacy
                 const stance = unit.stance || 'aggressive';
 
                 if (stance !== 'hold') {
                     if (!unit.attacking) {
-                        const enemyUnits = unit.owner === 'player' ? gameState.enemyUnits : gameState.units;
+                        // Get all potential enemy units based on diplomacy
+                        let enemyUnits = [];
+
+                        if (unit.owner === 'player') {
+                            // Player units can attack AI units we're at war with
+                            for (const ai of aiPlayers) {
+                                if (diplomacy.isAtWar(ai.id)) {
+                                    enemyUnits.push(...ai.units);
+                                }
+                            }
+                            // Also include legacy enemyUnits
+                            enemyUnits.push(...gameState.enemyUnits);
+                        } else if (typeof unit.owner === 'number') {
+                            // AI unit - attack player units if at war
+                            if (diplomacy.isAtWar(unit.owner)) {
+                                enemyUnits.push(...gameState.units);
+                            }
+                            // AI units can attack other AI units they're at war with (future feature)
+                        } else {
+                            // Legacy enemy units
+                            enemyUnits.push(...gameState.units);
+                        }
 
                         // Aggressive: attack enemies in detection range
                         // Defensive: attack only enemies in attack range
@@ -5330,6 +6034,9 @@ Special Units:
                 updateAllAIPlayers(deltaTime);
             }
 
+            // Update diplomacy timers
+            diplomacy.update(deltaTime);
+
             // Update fog of war
             updateFogOfWar();
 
@@ -5364,6 +6071,7 @@ Special Units:
             // Only update game logic if not paused
             if (!GAME_SETTINGS.gamePaused && deltaTime < 100) {
                 updateGame(deltaTime * (gameState.gameSpeed || 1));
+                updateEdgeScrolling();
             }
 
             render();
@@ -5431,6 +6139,9 @@ Special Units:
             document.getElementById('game-overlay').style.display = 'none';
 
             generateMap();
+
+            // Initialize diplomacy after AI players are created
+            diplomacy.initialize();
 
             // Initialize fog of war arrays
             fogState.explored = [];
@@ -5538,6 +6249,13 @@ Special Units:
                 ai.buildings = [];
                 ai.units = [];
                 aiPlayers.push(ai);
+            }
+
+            // Restore diplomacy relations or initialize fresh
+            if (data.diplomacy) {
+                diplomacy.relations = { ...data.diplomacy };
+            } else {
+                diplomacy.initialize();
             }
 
             // Initialize fog
