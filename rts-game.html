@@ -5334,12 +5334,17 @@ Special Units:
             updateFogOfWar();
 
             // Check win/lose conditions
-            if (gameState.enemyBuildings.length === 0) {
+            const totalEnemyBuildings = gameState.enemyBuildings.length +
+                aiPlayers.reduce((sum, ai) => sum + ai.buildings.length, 0);
+
+            if (totalEnemyBuildings === 0 && GAME_SETTINGS.gameStarted) {
                 document.getElementById('overlay-title').textContent = '🏆 Victory! 🏆';
                 document.getElementById('game-overlay').style.display = 'flex';
-            } else if (gameState.buildings.length === 0) {
+                GAME_SETTINGS.gameStarted = false; // Prevent repeated triggers
+            } else if (gameState.buildings.length === 0 && GAME_SETTINGS.gameStarted) {
                 document.getElementById('overlay-title').textContent = '💀 Defeat 💀';
                 document.getElementById('game-overlay').style.display = 'flex';
+                GAME_SETTINGS.gameStarted = false; // Prevent repeated triggers
             }
 
             updateResourceDisplay();
@@ -5422,6 +5427,9 @@ Special Units:
             GAME_SETTINGS.gameStarted = true;
             GAME_SETTINGS.gamePaused = false;
 
+            // Hide any overlays
+            document.getElementById('game-overlay').style.display = 'none';
+
             generateMap();
 
             // Initialize fog of war arrays
@@ -5458,6 +5466,9 @@ Special Units:
         function initializeGameFromSave(data) {
             GAME_SETTINGS.gameStarted = true;
             GAME_SETTINGS.gamePaused = false;
+
+            // Hide any overlays
+            document.getElementById('game-overlay').style.display = 'none';
 
             // Restore game state
             gameState.resources = { ...data.gameState.resources };
