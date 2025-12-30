@@ -591,6 +591,259 @@
             color: #90EE90;
             font-size: 9px;
         }
+
+        /* Cheat Console */
+        #cheat-console {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            max-height: 70vh;
+            background: rgba(10, 5, 2, 0.98);
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            display: none;
+            flex-direction: column;
+            z-index: 3000;
+            box-shadow: 0 0 60px rgba(0,0,0,0.8);
+        }
+
+        #cheat-console.active {
+            display: flex;
+        }
+
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: linear-gradient(180deg, var(--gold-dark) 0%, rgba(139, 105, 20, 0.8) 100%);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .console-title {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .console-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .console-output {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #0f0;
+            max-height: 300px;
+            background: #000;
+        }
+
+        .console-output .cmd-input {
+            color: #0ff;
+        }
+
+        .console-output .cmd-error {
+            color: #f55;
+        }
+
+        .console-output .cmd-success {
+            color: #5f5;
+        }
+
+        .console-input-area {
+            display: flex;
+            border-top: 1px solid var(--gold-dark);
+        }
+
+        .console-input-area span {
+            padding: 12px;
+            color: var(--gold);
+            font-family: 'Courier New', monospace;
+        }
+
+        #console-input {
+            flex: 1;
+            background: rgba(0,0,0,0.8);
+            border: none;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            padding: 12px;
+            outline: none;
+        }
+
+        .console-help {
+            padding: 12px;
+            background: rgba(212, 168, 75, 0.1);
+            font-size: 11px;
+            color: var(--parchment-dark);
+            border-top: 1px solid var(--gold-dark);
+        }
+
+        /* Fog of War overlay */
+        .fog-tile {
+            position: absolute;
+            background: #111;
+            pointer-events: none;
+        }
+
+        /* Sound toggle */
+        #sound-toggle {
+            position: fixed;
+            top: 70px;
+            right: 300px;
+            background: rgba(44, 24, 16, 0.9);
+            border: 2px solid var(--gold-dark);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 100;
+        }
+
+        #sound-toggle:hover {
+            border-color: var(--gold);
+        }
+
+        /* Multiplayer status */
+        #mp-status {
+            position: fixed;
+            top: 70px;
+            right: 350px;
+            background: rgba(44, 24, 16, 0.9);
+            border: 2px solid var(--gold-dark);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 12px;
+            color: var(--parchment);
+            z-index: 100;
+            display: none;
+        }
+
+        #mp-status.connected {
+            border-color: var(--food-green);
+            color: #90EE90;
+        }
+
+        /* Tech tree panel */
+        #tech-tree-btn {
+            background: linear-gradient(180deg, rgba(70, 130, 180, 0.6) 0%, rgba(25, 55, 95, 0.8) 100%);
+            border: 2px solid #4682B4;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        #tech-tree-btn:hover {
+            background: linear-gradient(180deg, rgba(100, 160, 210, 0.7) 0%, rgba(70, 130, 180, 0.9) 100%);
+        }
+
+        #tech-tree-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 900px;
+            max-height: 80vh;
+            background: rgba(20, 10, 5, 0.98);
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            display: none;
+            flex-direction: column;
+            z-index: 2500;
+            overflow: hidden;
+        }
+
+        #tech-tree-panel.active {
+            display: flex;
+        }
+
+        .tech-tree-content {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .tech-age-column {
+            min-width: 200px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .tech-age-title {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            color: var(--gold);
+            text-align: center;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--gold-dark);
+            margin-bottom: 12px;
+        }
+
+        .tech-item {
+            background: rgba(139, 69, 19, 0.4);
+            border: 2px solid var(--gold-dark);
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tech-item:hover:not(.locked):not(.researched) {
+            border-color: var(--gold);
+            background: rgba(212, 168, 75, 0.3);
+        }
+
+        .tech-item.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .tech-item.researched {
+            background: rgba(34, 139, 34, 0.4);
+            border-color: var(--food-green);
+        }
+
+        .tech-item-name {
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            color: var(--parchment);
+            margin-bottom: 4px;
+        }
+
+        .tech-item-desc {
+            font-size: 10px;
+            color: var(--parchment-dark);
+        }
+
+        .tech-item-cost {
+            font-size: 9px;
+            color: var(--gold);
+            margin-top: 4px;
+        }
     </style>
 </head>
 <body>
@@ -640,6 +893,7 @@
                     <button class="age-advance-btn" id="advance-age-btn" onclick="advanceAge()">
                         Advance Age
                     </button>
+                    <button id="tech-tree-btn" onclick="toggleTechTree()">📜 View Tech Tree</button>
                 </div>
 
                 <!-- Upgrades Section -->
@@ -788,15 +1042,18 @@
     <div id="instructions">
         <h3>🎮 Controls</h3>
         <p>
-            <kbd>Left Click</kbd> Select / Place building<br>
-            <kbd>Right Click</kbd> Move units / Attack enemy<br>
-            <kbd>WASD</kbd> / <kbd>Arrows</kbd> Pan camera<br>
-            <kbd>Esc</kbd> Cancel current action
+            <kbd>Left Click</kbd> Select / Place<br>
+            <kbd>Right Click</kbd> Move / Attack<br>
+            <kbd>WASD</kbd> Pan camera<br>
+            <kbd>`</kbd> Cheat Console<br>
+            <kbd>T</kbd> Tech Tree<br>
+            <kbd>Esc</kbd> Cancel
         </p>
-        <h3>⬆️ Upgrades</h3>
+        <h3>🎯 Features</h3>
         <p>
-            Upgrade your army's Attack, Defense, HP, and Speed.<br>
-            Advance through ages to unlock more power!
+            A* Pathfinding | Smart AI<br>
+            Tech Tree | Fog of War<br>
+            Sound FX | Multiplayer Ready
         </p>
     </div>
 
@@ -804,6 +1061,42 @@
         <div class="overlay-content">
             <div class="overlay-title" id="overlay-title">Victory!</div>
             <button class="overlay-btn" onclick="location.reload()">Play Again</button>
+        </div>
+    </div>
+
+    <!-- Cheat Console -->
+    <div id="cheat-console">
+        <div class="console-header">
+            <span class="console-title">🎮 Developer Console</span>
+            <button class="console-close" onclick="toggleConsole()">&times;</button>
+        </div>
+        <div class="console-output" id="console-output">
+            <div>Welcome to the Developer Console!</div>
+            <div>Type 'help' for available commands.</div>
+        </div>
+        <div class="console-input-area">
+            <span>&gt;</span>
+            <input type="text" id="console-input" placeholder="Enter command..." autocomplete="off">
+        </div>
+        <div class="console-help">
+            Press <kbd>`</kbd> or <kbd>~</kbd> to toggle console | <kbd>Enter</kbd> to execute | <kbd>↑↓</kbd> command history
+        </div>
+    </div>
+
+    <!-- Sound Toggle -->
+    <div id="sound-toggle" onclick="toggleSound()">🔊</div>
+
+    <!-- Multiplayer Status -->
+    <div id="mp-status">Offline</div>
+
+    <!-- Tech Tree Panel -->
+    <div id="tech-tree-panel">
+        <div class="console-header">
+            <span class="console-title">📜 Technology Tree</span>
+            <button class="console-close" onclick="toggleTechTree()">&times;</button>
+        </div>
+        <div class="tech-tree-content" id="tech-tree-content">
+            <!-- Generated by JS -->
         </div>
     </div>
 
@@ -1115,7 +1408,13 @@
             },
             // Age/Tech progression
             currentAge: 0, // 0: Stone Age, 1: Bronze Age, 2: Iron Age, 3: Imperial Age
-            ages: ['Stone Age', 'Bronze Age', 'Iron Age', 'Imperial Age']
+            ages: ['Stone Age', 'Bronze Age', 'Iron Age', 'Imperial Age'],
+            // New systems
+            researchedTechs: [],
+            techBonuses: { attack: 0, defense: 0, speed: 0, hp: 0 },
+            aiEnabled: true,
+            godMode: false,
+            gameSpeed: 1
         };
 
         // Upgrade definitions
@@ -1184,17 +1483,1155 @@
         ];
 
         // ============================================
+        // TECH TREE DEFINITIONS
+        // ============================================
+        const TECH_TREE = {
+            // Stone Age techs
+            stoneTools: {
+                name: 'Stone Tools',
+                age: 0,
+                cost: { food: 100, wood: 50 },
+                effect: { resourceBonus: 0.1 },
+                description: '+10% resource gathering',
+                requires: []
+            },
+            hunting: {
+                name: 'Hunting',
+                age: 0,
+                cost: { food: 75 },
+                effect: { foodBonus: 0.15 },
+                description: '+15% food production',
+                requires: []
+            },
+            // Bronze Age techs
+            bronzeWorking: {
+                name: 'Bronze Working',
+                age: 1,
+                cost: { food: 200, gold: 100 },
+                effect: { attackBonus: 2 },
+                description: '+2 attack for all units',
+                requires: ['stoneTools']
+            },
+            wheelwright: {
+                name: 'Wheelwright',
+                age: 1,
+                cost: { wood: 200, gold: 75 },
+                effect: { speedBonus: 0.2 },
+                description: '+0.2 speed for all units',
+                requires: []
+            },
+            masonry: {
+                name: 'Masonry',
+                age: 1,
+                cost: { stone: 200, wood: 100 },
+                effect: { buildingHpBonus: 200 },
+                description: '+200 HP for buildings',
+                requires: []
+            },
+            // Iron Age techs
+            ironWorking: {
+                name: 'Iron Working',
+                age: 2,
+                cost: { food: 400, gold: 300 },
+                effect: { attackBonus: 4 },
+                description: '+4 attack for all units',
+                requires: ['bronzeWorking']
+            },
+            chainMail: {
+                name: 'Chain Mail',
+                age: 2,
+                cost: { gold: 350, stone: 200 },
+                effect: { defenseBonus: 3 },
+                description: '+3 defense for all units',
+                requires: ['bronzeWorking']
+            },
+            siegecraft: {
+                name: 'Siegecraft',
+                age: 2,
+                cost: { wood: 400, gold: 200 },
+                effect: { siegeBonus: 20 },
+                description: '+20 damage vs buildings',
+                requires: ['masonry']
+            },
+            // Imperial Age techs
+            steelWorking: {
+                name: 'Steel Working',
+                age: 3,
+                cost: { food: 800, gold: 600 },
+                effect: { attackBonus: 6, defenseBonus: 2 },
+                description: '+6 attack, +2 defense',
+                requires: ['ironWorking']
+            },
+            plateMail: {
+                name: 'Plate Mail',
+                age: 3,
+                cost: { gold: 700, stone: 400 },
+                effect: { defenseBonus: 5, hpBonus: 20 },
+                description: '+5 defense, +20 HP',
+                requires: ['chainMail']
+            },
+            engineering: {
+                name: 'Engineering',
+                age: 3,
+                cost: { wood: 600, stone: 600, gold: 300 },
+                effect: { rangeBonus: 2 },
+                description: '+2 range for ranged units',
+                requires: ['siegecraft']
+            }
+        };
+
+        // ============================================
+        // FOG OF WAR STATE
+        // ============================================
+        const fogState = {
+            enabled: true,
+            explored: [], // 2D array of explored tiles
+            visible: [],  // 2D array of currently visible tiles
+            visionRange: 5
+        };
+
+        // ============================================
+        // SOUND SYSTEM
+        // ============================================
+        const soundSystem = {
+            enabled: true,
+            volume: 0.5,
+            musicPlaying: false,
+            sounds: {},
+
+            // Web Audio API context
+            audioContext: null,
+
+            init() {
+                try {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    console.log('Web Audio not supported');
+                }
+            },
+
+            // Generate simple synth sounds
+            playTone(frequency, duration, type = 'sine') {
+                if (!this.enabled || !this.audioContext) return;
+
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+
+                oscillator.type = type;
+                oscillator.frequency.value = frequency;
+                gainNode.gain.value = this.volume * 0.3;
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration);
+
+                oscillator.start();
+                oscillator.stop(this.audioContext.currentTime + duration);
+            },
+
+            playClick() { this.playTone(800, 0.1, 'square'); },
+            playBuild() { this.playTone(400, 0.3, 'triangle'); },
+            playTrain() { this.playTone(600, 0.2, 'sine'); },
+            playAttack() { this.playTone(200, 0.15, 'sawtooth'); },
+            playDeath() { this.playTone(150, 0.4, 'sawtooth'); },
+            playVictory() {
+                this.playTone(523, 0.2); // C
+                setTimeout(() => this.playTone(659, 0.2), 200); // E
+                setTimeout(() => this.playTone(784, 0.4), 400); // G
+            },
+            playDefeat() {
+                this.playTone(300, 0.3);
+                setTimeout(() => this.playTone(250, 0.3), 300);
+                setTimeout(() => this.playTone(200, 0.5), 600);
+            }
+        };
+
+        // ============================================
+        // A* PATHFINDING
+        // ============================================
+        class PathFinder {
+            static heuristic(a, b) {
+                return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+            }
+
+            static getNeighbors(node, map) {
+                const neighbors = [];
+                const dirs = [
+                    { x: 0, y: -1 }, { x: 1, y: 0 },
+                    { x: 0, y: 1 }, { x: -1, y: 0 },
+                    // Diagonals
+                    { x: 1, y: -1 }, { x: 1, y: 1 },
+                    { x: -1, y: 1 }, { x: -1, y: -1 }
+                ];
+
+                for (const dir of dirs) {
+                    const nx = node.x + dir.x;
+                    const ny = node.y + dir.y;
+
+                    if (nx >= 0 && nx < CONFIG.MAP_WIDTH && ny >= 0 && ny < CONFIG.MAP_HEIGHT) {
+                        const tile = map[ny][nx];
+                        if (TERRAIN[tile.terrain].walkable && !tile.building) {
+                            neighbors.push({ x: nx, y: ny });
+                        }
+                    }
+                }
+                return neighbors;
+            }
+
+            static findPath(startX, startY, endX, endY, map) {
+                const start = { x: Math.floor(startX), y: Math.floor(startY) };
+                const end = { x: Math.floor(endX), y: Math.floor(endY) };
+
+                // Check if end is valid
+                if (end.x < 0 || end.x >= CONFIG.MAP_WIDTH || end.y < 0 || end.y >= CONFIG.MAP_HEIGHT) {
+                    return null;
+                }
+
+                const endTile = map[end.y][end.x];
+                if (!TERRAIN[endTile.terrain].walkable || endTile.building) {
+                    // Find nearest valid tile
+                    const validEnd = this.findNearestWalkable(end.x, end.y, map);
+                    if (!validEnd) return null;
+                    end.x = validEnd.x;
+                    end.y = validEnd.y;
+                }
+
+                const openSet = [start];
+                const closedSet = new Set();
+                const gScore = new Map();
+                const fScore = new Map();
+                const cameFrom = new Map();
+
+                const key = (n) => `${n.x},${n.y}`;
+
+                gScore.set(key(start), 0);
+                fScore.set(key(start), this.heuristic(start, end));
+
+                let iterations = 0;
+                const maxIterations = 1000;
+
+                while (openSet.length > 0 && iterations < maxIterations) {
+                    iterations++;
+
+                    // Find node with lowest fScore
+                    openSet.sort((a, b) => (fScore.get(key(a)) || Infinity) - (fScore.get(key(b)) || Infinity));
+                    const current = openSet.shift();
+
+                    if (current.x === end.x && current.y === end.y) {
+                        // Reconstruct path
+                        const path = [current];
+                        let curr = current;
+                        while (cameFrom.has(key(curr))) {
+                            curr = cameFrom.get(key(curr));
+                            path.unshift(curr);
+                        }
+                        return path;
+                    }
+
+                    closedSet.add(key(current));
+
+                    for (const neighbor of this.getNeighbors(current, map)) {
+                        if (closedSet.has(key(neighbor))) continue;
+
+                        const isDiagonal = neighbor.x !== current.x && neighbor.y !== current.y;
+                        const tentativeG = (gScore.get(key(current)) || 0) + (isDiagonal ? 1.414 : 1);
+
+                        const neighborKey = key(neighbor);
+                        if (!gScore.has(neighborKey) || tentativeG < gScore.get(neighborKey)) {
+                            cameFrom.set(neighborKey, current);
+                            gScore.set(neighborKey, tentativeG);
+                            fScore.set(neighborKey, tentativeG + this.heuristic(neighbor, end));
+
+                            if (!openSet.find(n => n.x === neighbor.x && n.y === neighbor.y)) {
+                                openSet.push(neighbor);
+                            }
+                        }
+                    }
+                }
+
+                return null; // No path found
+            }
+
+            static findNearestWalkable(x, y, map) {
+                for (let radius = 1; radius < 10; radius++) {
+                    for (let dx = -radius; dx <= radius; dx++) {
+                        for (let dy = -radius; dy <= radius; dy++) {
+                            const nx = x + dx;
+                            const ny = y + dy;
+                            if (nx >= 0 && nx < CONFIG.MAP_WIDTH && ny >= 0 && ny < CONFIG.MAP_HEIGHT) {
+                                const tile = map[ny][nx];
+                                if (TERRAIN[tile.terrain].walkable && !tile.building) {
+                                    return { x: nx, y: ny };
+                                }
+                            }
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+
+        // ============================================
+        // SOPHISTICATED ENEMY AI
+        // ============================================
+        const enemyAI = {
+            lastActionTime: 0,
+            actionInterval: 2000, // ms between AI decisions
+            resources: { food: 500, wood: 500, stone: 300, gold: 200, gems: 0 },
+            state: 'building', // 'building', 'expanding', 'attacking', 'defending'
+            targetBuilding: null,
+
+            update(deltaTime) {
+                this.lastActionTime += deltaTime;
+
+                if (this.lastActionTime < this.actionInterval) return;
+                this.lastActionTime = 0;
+
+                // Passive resource generation for AI
+                this.resources.food += 10;
+                this.resources.wood += 8;
+                this.resources.stone += 5;
+                this.resources.gold += 3;
+
+                // Determine state based on situation
+                const playerStrength = gameState.units.reduce((sum, u) => sum + UNITS[u.type].attack, 0);
+                const enemyStrength = gameState.enemyUnits.reduce((sum, u) => sum + UNITS[u.type].attack, 0);
+
+                if (enemyStrength < playerStrength * 0.5) {
+                    this.state = 'defending';
+                } else if (gameState.enemyBuildings.length < 3) {
+                    this.state = 'building';
+                } else if (enemyStrength > playerStrength * 1.5) {
+                    this.state = 'attacking';
+                } else {
+                    this.state = 'expanding';
+                }
+
+                switch (this.state) {
+                    case 'building':
+                        this.tryBuildStructure();
+                        this.tryTrainUnits();
+                        break;
+                    case 'expanding':
+                        this.tryBuildStructure();
+                        this.tryTrainUnits();
+                        break;
+                    case 'attacking':
+                        this.commandAttack();
+                        this.tryTrainUnits();
+                        break;
+                    case 'defending':
+                        this.tryTrainUnits();
+                        this.defendBase();
+                        break;
+                }
+            },
+
+            tryBuildStructure() {
+                // AI building priorities
+                const barracks = gameState.enemyBuildings.filter(b => b.type === 'barracks').length;
+                const farms = gameState.enemyBuildings.filter(b => b.type === 'farm').length;
+
+                if (farms < 2 && this.resources.wood >= 60) {
+                    this.buildNearBase('farm');
+                } else if (barracks < 2 && this.resources.wood >= 150 && this.resources.stone >= 100) {
+                    this.buildNearBase('barracks');
+                }
+            },
+
+            buildNearBase(type) {
+                const tc = gameState.enemyBuildings.find(b => b.type === 'townCenter');
+                if (!tc) return;
+
+                const def = BUILDINGS[type];
+
+                // Find valid spot near town center
+                for (let radius = 3; radius < 10; radius++) {
+                    for (let angle = 0; angle < Math.PI * 2; angle += 0.5) {
+                        const x = Math.floor(tc.x + Math.cos(angle) * radius);
+                        const y = Math.floor(tc.y + Math.sin(angle) * radius);
+
+                        if (canPlaceBuilding(type, x, y)) {
+                            // Deduct resources and build
+                            for (const [res, amt] of Object.entries(def.cost)) {
+                                this.resources[res] -= amt;
+                            }
+                            const building = placeBuilding(type, x, y, 'enemy');
+                            building.isComplete = true;
+                            building.constructionProgress = 100;
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            },
+
+            tryTrainUnits() {
+                const barracks = gameState.enemyBuildings.filter(b => b.type === 'barracks' && b.isComplete);
+
+                for (const barrack of barracks) {
+                    if (barrack.trainingQueue.length < 2) {
+                        // Train based on what we can afford
+                        if (this.resources.food >= 60 && this.resources.gold >= 20 && gameState.enemyUnits.length < 20) {
+                            this.resources.food -= 60;
+                            this.resources.gold -= 20;
+
+                            // Find spawn location
+                            const def = BUILDINGS[barrack.type];
+                            let spawnX = barrack.x + def.width;
+                            let spawnY = barrack.y + def.height;
+
+                            createUnit('swordsman', spawnX, spawnY, 'enemy');
+                        }
+                    }
+                }
+            },
+
+            commandAttack() {
+                const idleUnits = gameState.enemyUnits.filter(u => !u.attacking && !u.targetX);
+
+                if (idleUnits.length >= 5) {
+                    // Group attack
+                    const target = gameState.buildings[0] || gameState.units[0];
+                    if (target) {
+                        for (const unit of idleUnits) {
+                            unit.attacking = target;
+                        }
+                    }
+                }
+            },
+
+            defendBase() {
+                const tc = gameState.enemyBuildings.find(b => b.type === 'townCenter');
+                if (!tc) return;
+
+                // Move units back to defend
+                for (const unit of gameState.enemyUnits) {
+                    if (!unit.attacking) {
+                        const dist = Math.sqrt(Math.pow(unit.x - tc.x, 2) + Math.pow(unit.y - tc.y, 2));
+                        if (dist > 8) {
+                            unit.targetX = tc.x + Math.random() * 4 - 2;
+                            unit.targetY = tc.y + Math.random() * 4 - 2;
+                        }
+                    }
+                }
+            }
+        };
+
+        // ============================================
+        // MULTIPLAYER FOUNDATION
+        // ============================================
+        const multiplayer = {
+            socket: null,
+            isHost: false,
+            playerId: null,
+            roomId: null,
+            connected: false,
+
+            connect(serverUrl) {
+                try {
+                    this.socket = new WebSocket(serverUrl);
+
+                    this.socket.onopen = () => {
+                        this.connected = true;
+                        document.getElementById('mp-status').style.display = 'block';
+                        document.getElementById('mp-status').textContent = 'Connected';
+                        document.getElementById('mp-status').classList.add('connected');
+                        showMessage('Connected to multiplayer server!', 'success');
+                    };
+
+                    this.socket.onclose = () => {
+                        this.connected = false;
+                        document.getElementById('mp-status').textContent = 'Disconnected';
+                        document.getElementById('mp-status').classList.remove('connected');
+                    };
+
+                    this.socket.onmessage = (event) => {
+                        const data = JSON.parse(event.data);
+                        this.handleMessage(data);
+                    };
+
+                    this.socket.onerror = (error) => {
+                        showMessage('Multiplayer connection failed', 'error');
+                    };
+                } catch (e) {
+                    showMessage('WebSocket not supported', 'error');
+                }
+            },
+
+            disconnect() {
+                if (this.socket) {
+                    this.socket.close();
+                    this.socket = null;
+                }
+            },
+
+            send(type, data) {
+                if (this.socket && this.connected) {
+                    this.socket.send(JSON.stringify({ type, data, playerId: this.playerId }));
+                }
+            },
+
+            handleMessage(msg) {
+                switch (msg.type) {
+                    case 'joined':
+                        this.playerId = msg.playerId;
+                        this.roomId = msg.roomId;
+                        showMessage(`Joined room: ${msg.roomId}`, 'success');
+                        break;
+                    case 'unitMove':
+                        // Handle opponent unit movement
+                        break;
+                    case 'buildingPlace':
+                        // Handle opponent building placement
+                        break;
+                    case 'attack':
+                        // Handle combat sync
+                        break;
+                    case 'sync':
+                        // Full game state sync
+                        break;
+                }
+            },
+
+            syncGameState() {
+                this.send('sync', {
+                    units: gameState.units,
+                    buildings: gameState.buildings,
+                    resources: gameState.resources
+                });
+            }
+        };
+
+        // ============================================
+        // SPRITE RENDERING SYSTEM
+        // ============================================
+        const spriteRenderer = {
+            enabled: true, // Toggle for emoji vs sprite mode
+
+            // Draw unit using canvas shapes instead of emoji
+            drawUnit(ctx, unit, x, y, size) {
+                const def = UNITS[unit.type];
+                const isPlayer = unit.owner === 'player';
+                const baseColor = isPlayer ? '#4169E1' : '#DC143C';
+                const darkColor = isPlayer ? '#1a3a7a' : '#8B0000';
+
+                ctx.save();
+
+                switch (unit.type) {
+                    case 'villager':
+                        this.drawVillager(ctx, x, y, size, baseColor, darkColor);
+                        break;
+                    case 'swordsman':
+                        this.drawSwordsman(ctx, x, y, size, baseColor, darkColor);
+                        break;
+                    case 'archer':
+                        this.drawArcher(ctx, x, y, size, baseColor, darkColor);
+                        break;
+                    case 'cavalry':
+                    case 'knight':
+                        this.drawCavalry(ctx, x, y, size, baseColor, darkColor);
+                        break;
+                    case 'catapult':
+                    case 'trebuchet':
+                        this.drawSiege(ctx, x, y, size, baseColor, darkColor);
+                        break;
+                    default:
+                        this.drawGenericUnit(ctx, x, y, size, baseColor, darkColor);
+                }
+
+                ctx.restore();
+            },
+
+            drawVillager(ctx, x, y, size, color, dark) {
+                const cx = x + size / 2;
+                const cy = y + size / 2;
+                const r = size * 0.35;
+
+                // Body
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Head
+                ctx.fillStyle = '#FFDAB9';
+                ctx.beginPath();
+                ctx.arc(cx, cy - r * 0.3, r * 0.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Tool (pickaxe)
+                ctx.strokeStyle = '#8B4513';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(cx + r * 0.3, cy - r * 0.2);
+                ctx.lineTo(cx + r * 0.8, cy - r * 0.7);
+                ctx.stroke();
+            },
+
+            drawSwordsman(ctx, x, y, size, color, dark) {
+                const cx = x + size / 2;
+                const cy = y + size / 2;
+                const r = size * 0.35;
+
+                // Body
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Shield
+                ctx.fillStyle = dark;
+                ctx.beginPath();
+                ctx.ellipse(cx - r * 0.4, cy, r * 0.4, r * 0.6, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Sword
+                ctx.strokeStyle = '#C0C0C0';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(cx + r * 0.3, cy + r * 0.3);
+                ctx.lineTo(cx + r * 0.9, cy - r * 0.5);
+                ctx.stroke();
+            },
+
+            drawArcher(ctx, x, y, size, color, dark) {
+                const cx = x + size / 2;
+                const cy = y + size / 2;
+                const r = size * 0.35;
+
+                // Body
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Bow
+                ctx.strokeStyle = '#8B4513';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(cx + r * 0.2, cy, r * 0.7, -Math.PI * 0.4, Math.PI * 0.4);
+                ctx.stroke();
+
+                // Arrow
+                ctx.strokeStyle = '#C0C0C0';
+                ctx.beginPath();
+                ctx.moveTo(cx - r * 0.3, cy);
+                ctx.lineTo(cx + r * 0.9, cy);
+                ctx.stroke();
+            },
+
+            drawCavalry(ctx, x, y, size, color, dark) {
+                const cx = x + size / 2;
+                const cy = y + size / 2;
+                const r = size * 0.4;
+
+                // Horse body
+                ctx.fillStyle = '#8B4513';
+                ctx.beginPath();
+                ctx.ellipse(cx, cy + r * 0.2, r * 0.9, r * 0.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Rider
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(cx, cy - r * 0.3, r * 0.4, 0, Math.PI * 2);
+                ctx.fill();
+            },
+
+            drawSiege(ctx, x, y, size, color, dark) {
+                const cx = x + size / 2;
+                const cy = y + size / 2;
+                const r = size * 0.4;
+
+                // Wheels
+                ctx.fillStyle = '#4a3728';
+                ctx.beginPath();
+                ctx.arc(cx - r * 0.5, cy + r * 0.4, r * 0.3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(cx + r * 0.5, cy + r * 0.4, r * 0.3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Frame
+                ctx.fillStyle = '#8B4513';
+                ctx.fillRect(cx - r * 0.7, cy - r * 0.3, r * 1.4, r * 0.5);
+
+                // Arm
+                ctx.strokeStyle = '#4a3728';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy - r * 0.2);
+                ctx.lineTo(cx + r * 0.6, cy - r * 0.8);
+                ctx.stroke();
+            },
+
+            drawGenericUnit(ctx, x, y, size, color, dark) {
+                const cx = x + size / 2;
+                const cy = y + size / 2;
+                const r = size * 0.35;
+
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.strokeStyle = dark;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            },
+
+            // Draw building using canvas shapes
+            drawBuilding(ctx, building, x, y, width, height) {
+                const def = BUILDINGS[building.type];
+                const isPlayer = building.owner === 'player';
+                const baseColor = isPlayer ? 'rgba(100, 149, 237, 0.9)' : 'rgba(220, 60, 60, 0.9)';
+                const roofColor = isPlayer ? '#4169E1' : '#8B0000';
+
+                ctx.save();
+
+                // Building base
+                ctx.fillStyle = baseColor;
+                ctx.fillRect(x, y + height * 0.3, width, height * 0.7);
+
+                // Roof
+                ctx.fillStyle = roofColor;
+                ctx.beginPath();
+                ctx.moveTo(x, y + height * 0.3);
+                ctx.lineTo(x + width / 2, y);
+                ctx.lineTo(x + width, y + height * 0.3);
+                ctx.closePath();
+                ctx.fill();
+
+                // Window/door details based on building type
+                ctx.fillStyle = '#2a2a3a';
+                if (building.type === 'townCenter') {
+                    // Large door
+                    ctx.fillRect(x + width * 0.35, y + height * 0.5, width * 0.3, height * 0.5);
+                    // Windows
+                    ctx.fillRect(x + width * 0.1, y + height * 0.4, width * 0.15, height * 0.15);
+                    ctx.fillRect(x + width * 0.75, y + height * 0.4, width * 0.15, height * 0.15);
+                } else if (building.type === 'barracks') {
+                    // Multiple doors
+                    ctx.fillRect(x + width * 0.1, y + height * 0.6, width * 0.2, height * 0.4);
+                    ctx.fillRect(x + width * 0.7, y + height * 0.6, width * 0.2, height * 0.4);
+                } else {
+                    // Simple door
+                    ctx.fillRect(x + width * 0.4, y + height * 0.6, width * 0.2, height * 0.4);
+                }
+
+                ctx.restore();
+            }
+        };
+
+        // ============================================
+        // CHEAT CONSOLE SYSTEM
+        // ============================================
+        let consoleHistory = [];
+        let historyIndex = -1;
+        let consoleOpen = false;
+
+        const cheatCommands = {
+            help: () => {
+                return `Available commands:
+  resources [amount] - Add resources (default: 10000)
+  spawn [unit] [count] - Spawn units (swordsman, archer, cavalry, knight, etc.)
+  kill [all|enemies|player] - Kill units
+  god - Toggle invincibility
+  reveal - Reveal entire map (disable fog)
+  age [0-3] - Set age (0=Stone, 1=Bronze, 2=Iron, 3=Imperial)
+  upgrade [type] [level] - Set upgrade level (attack, defense, hp, speed)
+  win - Instant victory
+  lose - Instant defeat
+  speed [multiplier] - Game speed (0.5, 1, 2, etc.)
+  teleport [x] [y] - Move selected units
+  heal - Heal all player units
+  damage [amount] - Damage all enemies
+  build [type] - Instantly place building at camera center
+  clear - Clear console
+  mp connect [url] - Connect to multiplayer server
+  mp disconnect - Disconnect from server
+  sound [on|off] - Toggle sound
+  fog [on|off] - Toggle fog of war
+  ai [on|off] - Toggle enemy AI
+  stats - Show game statistics`;
+            },
+
+            resources: (args) => {
+                const amount = parseInt(args[0]) || 10000;
+                gameState.resources.food += amount;
+                gameState.resources.wood += amount;
+                gameState.resources.stone += amount;
+                gameState.resources.gold += amount;
+                gameState.resources.gems += Math.floor(amount / 10);
+                return `Added ${amount} of each resource!`;
+            },
+
+            spawn: (args) => {
+                const unitType = args[0] || 'swordsman';
+                const count = parseInt(args[1]) || 1;
+
+                if (!UNITS[unitType]) {
+                    return `Unknown unit type: ${unitType}. Available: ${Object.keys(UNITS).join(', ')}`;
+                }
+
+                const tc = gameState.buildings.find(b => b.type === 'townCenter');
+                const baseX = tc ? tc.x + 2 : 10;
+                const baseY = tc ? tc.y + 4 : 12;
+
+                for (let i = 0; i < count; i++) {
+                    createUnit(unitType, baseX + (i % 5), baseY + Math.floor(i / 5), 'player');
+                }
+                return `Spawned ${count} ${unitType}(s)!`;
+            },
+
+            kill: (args) => {
+                const target = args[0] || 'enemies';
+                let killed = 0;
+
+                if (target === 'all' || target === 'enemies') {
+                    killed += gameState.enemyUnits.length;
+                    gameState.enemyUnits.forEach(u => removeUnit(u));
+                    gameState.enemyUnits = [];
+                }
+                if (target === 'all' || target === 'player') {
+                    killed += gameState.units.length;
+                    gameState.units.forEach(u => {
+                        gameState.population -= UNITS[u.type].population;
+                    });
+                    gameState.units = [];
+                }
+                return `Killed ${killed} units!`;
+            },
+
+            god: () => {
+                gameState.godMode = !gameState.godMode;
+                if (gameState.godMode) {
+                    for (const unit of gameState.units) {
+                        unit.hp = 99999;
+                        unit.maxHp = 99999;
+                    }
+                }
+                return `God mode: ${gameState.godMode ? 'ON' : 'OFF'}`;
+            },
+
+            reveal: () => {
+                fogState.enabled = false;
+                for (let y = 0; y < CONFIG.MAP_HEIGHT; y++) {
+                    for (let x = 0; x < CONFIG.MAP_WIDTH; x++) {
+                        fogState.explored[y][x] = true;
+                        fogState.visible[y][x] = true;
+                    }
+                }
+                return 'Map revealed!';
+            },
+
+            age: (args) => {
+                const age = parseInt(args[0]);
+                if (isNaN(age) || age < 0 || age > 3) {
+                    return 'Usage: age [0-3] (0=Stone, 1=Bronze, 2=Iron, 3=Imperial)';
+                }
+                gameState.currentAge = age;
+                return `Age set to ${gameState.ages[age]}!`;
+            },
+
+            upgrade: (args) => {
+                const type = args[0];
+                const level = parseInt(args[1]);
+
+                const types = ['attack', 'defense', 'hp', 'speed'];
+                if (!types.includes(type)) {
+                    return `Usage: upgrade [${types.join('|')}] [level]`;
+                }
+
+                const maxLevel = UPGRADES[type].maxLevel;
+                if (isNaN(level) || level < 0 || level > maxLevel) {
+                    return `Level must be 0-${maxLevel}`;
+                }
+
+                gameState.upgrades[type + 'Level'] = level;
+                return `${type} upgraded to level ${level}!`;
+            },
+
+            win: () => {
+                gameState.enemyBuildings = [];
+                gameState.enemyUnits = [];
+                return 'Victory triggered!';
+            },
+
+            lose: () => {
+                gameState.buildings = [];
+                return 'Defeat triggered!';
+            },
+
+            speed: (args) => {
+                const multiplier = parseFloat(args[0]) || 1;
+                gameState.gameSpeed = multiplier;
+                return `Game speed set to ${multiplier}x`;
+            },
+
+            teleport: (args) => {
+                const x = parseInt(args[0]);
+                const y = parseInt(args[1]);
+
+                if (isNaN(x) || isNaN(y)) {
+                    return 'Usage: teleport [x] [y]';
+                }
+
+                for (const unit of gameState.selectedUnits) {
+                    unit.x = x;
+                    unit.y = y;
+                    unit.targetX = null;
+                    unit.targetY = null;
+                }
+                return `Teleported ${gameState.selectedUnits.length} units to (${x}, ${y})`;
+            },
+
+            heal: () => {
+                for (const unit of gameState.units) {
+                    unit.hp = unit.maxHp;
+                }
+                return `Healed ${gameState.units.length} units!`;
+            },
+
+            damage: (args) => {
+                const amount = parseInt(args[0]) || 50;
+                for (const unit of gameState.enemyUnits) {
+                    unit.hp -= amount;
+                    if (unit.hp <= 0) {
+                        removeUnit(unit);
+                    }
+                }
+                return `Dealt ${amount} damage to all enemies!`;
+            },
+
+            build: (args) => {
+                const type = args[0];
+                if (!BUILDINGS[type]) {
+                    return `Unknown building: ${type}. Available: ${Object.keys(BUILDINGS).join(', ')}`;
+                }
+
+                const x = Math.floor(gameState.camera.x / CONFIG.TILE_SIZE) + 5;
+                const y = Math.floor(gameState.camera.y / CONFIG.TILE_SIZE) + 5;
+
+                if (canPlaceBuilding(type, x, y)) {
+                    const building = placeBuilding(type, x, y, 'player');
+                    building.isComplete = true;
+                    building.constructionProgress = 100;
+                    return `Built ${BUILDINGS[type].name} at (${x}, ${y})!`;
+                }
+                return 'Cannot place building at that location!';
+            },
+
+            clear: () => {
+                document.getElementById('console-output').innerHTML = '';
+                return '';
+            },
+
+            mp: (args) => {
+                const action = args[0];
+                if (action === 'connect') {
+                    const url = args[1] || 'ws://localhost:8080';
+                    multiplayer.connect(url);
+                    return `Connecting to ${url}...`;
+                } else if (action === 'disconnect') {
+                    multiplayer.disconnect();
+                    return 'Disconnected from server';
+                }
+                return 'Usage: mp connect [url] | mp disconnect';
+            },
+
+            sound: (args) => {
+                const state = args[0];
+                if (state === 'on') {
+                    soundSystem.enabled = true;
+                } else if (state === 'off') {
+                    soundSystem.enabled = false;
+                } else {
+                    soundSystem.enabled = !soundSystem.enabled;
+                }
+                document.getElementById('sound-toggle').textContent = soundSystem.enabled ? '🔊' : '🔇';
+                return `Sound: ${soundSystem.enabled ? 'ON' : 'OFF'}`;
+            },
+
+            fog: (args) => {
+                const state = args[0];
+                if (state === 'on') {
+                    fogState.enabled = true;
+                } else if (state === 'off') {
+                    fogState.enabled = false;
+                } else {
+                    fogState.enabled = !fogState.enabled;
+                }
+                return `Fog of war: ${fogState.enabled ? 'ON' : 'OFF'}`;
+            },
+
+            ai: (args) => {
+                const state = args[0];
+                if (state === 'on') {
+                    gameState.aiEnabled = true;
+                } else if (state === 'off') {
+                    gameState.aiEnabled = false;
+                } else {
+                    gameState.aiEnabled = !gameState.aiEnabled;
+                }
+                return `Enemy AI: ${gameState.aiEnabled ? 'ON' : 'OFF'}`;
+            },
+
+            stats: () => {
+                return `Game Statistics:
+  Time: ${Math.floor(gameState.gameTime / 1000)}s
+  Player Units: ${gameState.units.length}
+  Enemy Units: ${gameState.enemyUnits.length}
+  Player Buildings: ${gameState.buildings.length}
+  Enemy Buildings: ${gameState.enemyBuildings.length}
+  Population: ${gameState.population}/${gameState.maxPopulation}
+  Age: ${gameState.ages[gameState.currentAge]}
+  Upgrades: ATK ${gameState.upgrades.attackLevel}, DEF ${gameState.upgrades.defenseLevel}, HP ${gameState.upgrades.hpLevel}, SPD ${gameState.upgrades.speedLevel}`;
+            }
+        };
+
+        function toggleConsole() {
+            consoleOpen = !consoleOpen;
+            document.getElementById('cheat-console').classList.toggle('active', consoleOpen);
+            if (consoleOpen) {
+                document.getElementById('console-input').focus();
+            }
+        }
+
+        function executeCommand(input) {
+            const output = document.getElementById('console-output');
+            const parts = input.trim().split(/\s+/);
+            const cmd = parts[0].toLowerCase();
+            const args = parts.slice(1);
+
+            // Add to history
+            consoleHistory.push(input);
+            historyIndex = consoleHistory.length;
+
+            // Show input
+            output.innerHTML += `<div class="cmd-input">&gt; ${input}</div>`;
+
+            if (cheatCommands[cmd]) {
+                const result = cheatCommands[cmd](args);
+                if (result) {
+                    output.innerHTML += `<div class="cmd-success">${result.replace(/\n/g, '<br>')}</div>`;
+                }
+            } else if (cmd) {
+                output.innerHTML += `<div class="cmd-error">Unknown command: ${cmd}. Type 'help' for available commands.</div>`;
+            }
+
+            // Scroll to bottom
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function toggleSound() {
+            soundSystem.enabled = !soundSystem.enabled;
+            document.getElementById('sound-toggle').textContent = soundSystem.enabled ? '🔊' : '🔇';
+            if (soundSystem.enabled) {
+                soundSystem.playClick();
+            }
+        }
+
+        function toggleTechTree() {
+            const panel = document.getElementById('tech-tree-panel');
+            panel.classList.toggle('active');
+            if (panel.classList.contains('active')) {
+                renderTechTree();
+            }
+        }
+
+        function renderTechTree() {
+            const content = document.getElementById('tech-tree-content');
+            content.innerHTML = '';
+
+            const ages = ['Stone Age', 'Bronze Age', 'Iron Age', 'Imperial Age'];
+
+            for (let age = 0; age < 4; age++) {
+                const column = document.createElement('div');
+                column.className = 'tech-age-column';
+
+                const title = document.createElement('div');
+                title.className = 'tech-age-title';
+                title.textContent = ages[age];
+                column.appendChild(title);
+
+                // Find techs for this age
+                for (const [techId, tech] of Object.entries(TECH_TREE)) {
+                    if (tech.age === age) {
+                        const item = document.createElement('div');
+                        item.className = 'tech-item';
+
+                        // Check if locked or researched
+                        const isResearched = gameState.researchedTechs && gameState.researchedTechs.includes(techId);
+                        const canResearch = age <= gameState.currentAge &&
+                            tech.requires.every(req => gameState.researchedTechs && gameState.researchedTechs.includes(req));
+
+                        if (isResearched) {
+                            item.classList.add('researched');
+                        } else if (!canResearch) {
+                            item.classList.add('locked');
+                        }
+
+                        item.innerHTML = `
+                            <div class="tech-item-name">${tech.name}</div>
+                            <div class="tech-item-desc">${tech.description}</div>
+                            <div class="tech-item-cost">${Object.entries(tech.cost).map(([r, v]) => `${v} ${r}`).join(', ')}</div>
+                        `;
+
+                        if (!isResearched && canResearch) {
+                            item.onclick = () => researchTech(techId);
+                        }
+
+                        column.appendChild(item);
+                    }
+                }
+
+                content.appendChild(column);
+            }
+        }
+
+        function researchTech(techId) {
+            const tech = TECH_TREE[techId];
+            if (!canAfford(tech.cost)) {
+                showMessage('Not enough resources!', 'error');
+                return;
+            }
+
+            spendResources(tech.cost);
+
+            if (!gameState.researchedTechs) {
+                gameState.researchedTechs = [];
+            }
+            gameState.researchedTechs.push(techId);
+
+            // Apply effects
+            if (tech.effect.attackBonus) {
+                gameState.techBonuses = gameState.techBonuses || {};
+                gameState.techBonuses.attack = (gameState.techBonuses.attack || 0) + tech.effect.attackBonus;
+            }
+            if (tech.effect.defenseBonus) {
+                gameState.techBonuses = gameState.techBonuses || {};
+                gameState.techBonuses.defense = (gameState.techBonuses.defense || 0) + tech.effect.defenseBonus;
+            }
+
+            showMessage(`Researched: ${tech.name}!`, 'success');
+            soundSystem.playTrain();
+            renderTechTree();
+        }
+
+        // ============================================
         // UPGRADE UTILITY FUNCTIONS
         // ============================================
         function getUnitStats(unit) {
             const baseDef = UNITS[unit.type];
             const isPlayer = unit.owner === 'player';
 
-            // Only player units get upgrades
-            const attackBonus = isPlayer ? gameState.upgrades.attackLevel * UPGRADES.attack.bonusPerLevel : 0;
-            const defenseBonus = isPlayer ? gameState.upgrades.defenseLevel * UPGRADES.defense.bonusPerLevel : 0;
-            const hpBonus = isPlayer ? gameState.upgrades.hpLevel * UPGRADES.hp.bonusPerLevel : 0;
-            const speedBonus = isPlayer ? gameState.upgrades.speedLevel * UPGRADES.speed.bonusPerLevel : 0;
+            // Only player units get upgrades and tech bonuses
+            const attackBonus = isPlayer ? gameState.upgrades.attackLevel * UPGRADES.attack.bonusPerLevel + (gameState.techBonuses.attack || 0) : 0;
+            const defenseBonus = isPlayer ? gameState.upgrades.defenseLevel * UPGRADES.defense.bonusPerLevel + (gameState.techBonuses.defense || 0) : 0;
+            const hpBonus = isPlayer ? gameState.upgrades.hpLevel * UPGRADES.hp.bonusPerLevel + (gameState.techBonuses.hp || 0) : 0;
+            const speedBonus = isPlayer ? gameState.upgrades.speedLevel * UPGRADES.speed.bonusPerLevel + (gameState.techBonuses.speed || 0) : 0;
 
             return {
                 attack: baseDef.attack + attackBonus,
@@ -1762,6 +3199,26 @@
                 }
             }
 
+            // Draw fog of war
+            if (fogState.enabled) {
+                for (let y = Math.max(0, startY); y < endY; y++) {
+                    for (let x = Math.max(0, startX); x < endX; x++) {
+                        const screenX = x * CONFIG.TILE_SIZE - gameState.camera.x;
+                        const screenY = y * CONFIG.TILE_SIZE - gameState.camera.y;
+
+                        if (!fogState.explored[y][x]) {
+                            // Completely unexplored - solid black
+                            ctx.fillStyle = 'rgba(0, 0, 0, 0.95)';
+                            ctx.fillRect(screenX, screenY, CONFIG.TILE_SIZE, CONFIG.TILE_SIZE);
+                        } else if (!fogState.visible[y][x]) {
+                            // Explored but not visible - semi-transparent
+                            ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                            ctx.fillRect(screenX, screenY, CONFIG.TILE_SIZE, CONFIG.TILE_SIZE);
+                        }
+                    }
+                }
+            }
+
             // Render minimap
             renderMinimap();
         }
@@ -1922,6 +3379,42 @@
         canvas.addEventListener('contextmenu', (e) => e.preventDefault());
 
         document.addEventListener('keydown', (e) => {
+            // Console toggle
+            if (e.key === '`' || e.key === '~') {
+                e.preventDefault();
+                toggleConsole();
+                return;
+            }
+
+            // If console is open, handle console input
+            if (consoleOpen) {
+                if (e.key === 'Enter') {
+                    const input = document.getElementById('console-input');
+                    if (input.value.trim()) {
+                        executeCommand(input.value);
+                        input.value = '';
+                    }
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (historyIndex > 0) {
+                        historyIndex--;
+                        document.getElementById('console-input').value = consoleHistory[historyIndex];
+                    }
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (historyIndex < consoleHistory.length - 1) {
+                        historyIndex++;
+                        document.getElementById('console-input').value = consoleHistory[historyIndex];
+                    } else {
+                        historyIndex = consoleHistory.length;
+                        document.getElementById('console-input').value = '';
+                    }
+                } else if (e.key === 'Escape') {
+                    toggleConsole();
+                }
+                return;
+            }
+
             const speed = CONFIG.CAMERA_SPEED;
             switch (e.key) {
                 case 'ArrowUp':
@@ -1946,6 +3439,10 @@
                     gameState.selectedUnits = [];
                     updateBuildButtons();
                     updateSelectionUI();
+                    break;
+                case 't':
+                    // Toggle tech tree
+                    toggleTechTree();
                     break;
             }
         });
@@ -2337,18 +3834,13 @@
                 }
             }
 
-            // Simple enemy AI
-            if (Math.random() < 0.001) {
-                // Occasionally send units to attack
-                for (const unit of gameState.enemyUnits) {
-                    if (!unit.attacking && !unit.targetX) {
-                        const target = gameState.buildings[0] || gameState.units[0];
-                        if (target) {
-                            unit.attacking = target;
-                        }
-                    }
-                }
+            // Sophisticated enemy AI
+            if (gameState.aiEnabled) {
+                enemyAI.update(deltaTime);
             }
+
+            // Update fog of war
+            updateFogOfWar();
 
             // Check win/lose conditions
             if (gameState.enemyBuildings.length === 0) {
@@ -2374,9 +3866,9 @@
             lastTime = timestamp;
 
             if (deltaTime < 100) { // Prevent huge jumps
-                updateGame(deltaTime);
+                updateGame(deltaTime * (gameState.gameSpeed || 1));
             }
-            
+
             render();
             requestAnimationFrame(gameLoop);
         }
@@ -2386,16 +3878,69 @@
         // ============================================
         function init() {
             generateMap();
+
+            // Initialize fog of war arrays
+            for (let y = 0; y < CONFIG.MAP_HEIGHT; y++) {
+                fogState.explored[y] = [];
+                fogState.visible[y] = [];
+                for (let x = 0; x < CONFIG.MAP_WIDTH; x++) {
+                    fogState.explored[y][x] = false;
+                    fogState.visible[y][x] = false;
+                }
+            }
+
+            // Initialize sound system
+            soundSystem.init();
+
             updateResourceDisplay();
             updateBuildButtons();
             updateSelectionUI();
             updateUpgradeUI();
+            updateFogOfWar();
 
             showMessage('Welcome to Realm of Conquest!', 'success');
-            showMessage('Build your empire and destroy the enemy!', 'info');
-            showMessage('Upgrade your army to become stronger!', 'info');
+            showMessage('Press ` to open cheat console', 'info');
+            showMessage('Press T to view Tech Tree', 'info');
 
             requestAnimationFrame(gameLoop);
+        }
+
+        // Update fog of war based on unit/building positions
+        function updateFogOfWar() {
+            if (!fogState.enabled) return;
+
+            // Reset visibility (but keep explored)
+            for (let y = 0; y < CONFIG.MAP_HEIGHT; y++) {
+                for (let x = 0; x < CONFIG.MAP_WIDTH; x++) {
+                    fogState.visible[y][x] = false;
+                }
+            }
+
+            // Reveal areas around player units and buildings
+            const revealers = [...gameState.units, ...gameState.buildings.map(b => ({
+                x: b.x + BUILDINGS[b.type].width / 2,
+                y: b.y + BUILDINGS[b.type].height / 2,
+                owner: b.owner
+            }))];
+
+            for (const entity of revealers) {
+                if (entity.owner === 'player') {
+                    const range = fogState.visionRange;
+                    for (let dy = -range; dy <= range; dy++) {
+                        for (let dx = -range; dx <= range; dx++) {
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist <= range) {
+                                const fx = Math.floor(entity.x + dx);
+                                const fy = Math.floor(entity.y + dy);
+                                if (fx >= 0 && fx < CONFIG.MAP_WIDTH && fy >= 0 && fy < CONFIG.MAP_HEIGHT) {
+                                    fogState.visible[fy][fx] = true;
+                                    fogState.explored[fy][fx] = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         init();
