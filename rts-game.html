@@ -4554,7 +4554,17 @@ Special Units:
                         gameState.maxPopulation -= def.populationProvided;
                     }
                 }
+            } else if (typeof building.owner === 'number') {
+                // AI player building
+                const ai = aiPlayers.find(a => a.id === building.owner);
+                if (ai) {
+                    const idx = ai.buildings.indexOf(building);
+                    if (idx >= 0) {
+                        ai.buildings.splice(idx, 1);
+                    }
+                }
             } else {
+                // Legacy enemy buildings
                 const idx = gameState.enemyBuildings.indexOf(building);
                 if (idx >= 0) {
                     gameState.enemyBuildings.splice(idx, 1);
@@ -4569,15 +4579,26 @@ Special Units:
                     gameState.population -= UNITS[unit.type].population;
                     gameState.units.splice(idx, 1);
                 }
+            } else if (typeof unit.owner === 'number') {
+                // AI player unit
+                const ai = aiPlayers.find(a => a.id === unit.owner);
+                if (ai) {
+                    const idx = ai.units.indexOf(unit);
+                    if (idx >= 0) {
+                        ai.units.splice(idx, 1);
+                    }
+                }
             } else {
+                // Legacy enemy units
                 const idx = gameState.enemyUnits.indexOf(unit);
                 if (idx >= 0) {
                     gameState.enemyUnits.splice(idx, 1);
                 }
             }
 
-            // Clear any units targeting this one
-            for (const u of [...gameState.units, ...gameState.enemyUnits]) {
+            // Clear any units targeting this one (including AI units)
+            const allUnits = [...gameState.units, ...gameState.enemyUnits, ...aiPlayers.flatMap(ai => ai.units)];
+            for (const u of allUnits) {
                 if (u.attacking === unit) {
                     u.attacking = null;
                 }
@@ -5405,14 +5426,36 @@ Special Units:
                     updateBuildButtons();
                 } else if (gameState.selectedUnits.length > 0) {
                     // Check if targeting an enemy (use Math.floor for float positions)
-                    const enemyUnit = gameState.enemyUnits.find(u =>
+                    // Include AI player units and buildings
+                    let enemyUnit = gameState.enemyUnits.find(u =>
                         Math.floor(u.x) === pos.x && Math.floor(u.y) === pos.y
                     );
-                    const enemyBuilding = gameState.enemyBuildings.find(b => {
+                    // Also check AI player units
+                    if (!enemyUnit) {
+                        for (const ai of aiPlayers) {
+                            enemyUnit = ai.units.find(u =>
+                                Math.floor(u.x) === pos.x && Math.floor(u.y) === pos.y
+                            );
+                            if (enemyUnit) break;
+                        }
+                    }
+
+                    let enemyBuilding = gameState.enemyBuildings.find(b => {
                         const def = BUILDINGS[b.type];
                         return pos.x >= b.x && pos.x < b.x + def.width &&
                                pos.y >= b.y && pos.y < b.y + def.height;
                     });
+                    // Also check AI player buildings
+                    if (!enemyBuilding) {
+                        for (const ai of aiPlayers) {
+                            enemyBuilding = ai.buildings.find(b => {
+                                const def = BUILDINGS[b.type];
+                                return pos.x >= b.x && pos.x < b.x + def.width &&
+                                       pos.y >= b.y && pos.y < b.y + def.height;
+                            });
+                            if (enemyBuilding) break;
+                        }
+                    }
 
                     for (const unit of gameState.selectedUnits) {
                         const stance = unit.stance || 'aggressive';
@@ -5851,8 +5894,9 @@ Special Units:
             const unitsToRemove = [];
             const buildingsToRemove = [];
 
-            // Unit movement and combat
-            for (const unit of [...gameState.units, ...gameState.enemyUnits]) {
+            // Unit movement and combat - include AI player units
+            const allUnits = [...gameState.units, ...gameState.enemyUnits, ...aiPlayers.flatMap(ai => ai.units)];
+            for (const unit of allUnits) {
                 // Skip if unit is dead
                 if (unit.hp <= 0) continue;
 
@@ -6007,11 +6051,30 @@ Special Units:
                 removeBuilding(building);
             }
 
-            // Tower attacks
-            for (const building of [...gameState.buildings, ...gameState.enemyBuildings]) {
+            // Tower attacks - include AI player buildings
+            const allBuildings = [...gameState.buildings, ...gameState.enemyBuildings, ...aiPlayers.flatMap(ai => ai.buildings)];
+            for (const building of allBuildings) {
                 if (building.type === 'tower' && building.isComplete && building.hp > 0) {
                     const def = BUILDINGS.tower;
-                    const enemyUnits = building.owner === 'player' ? gameState.enemyUnits : gameState.units;
+                    let enemyUnits = [];
+
+                    if (building.owner === 'player') {
+                        // Player tower attacks AI units we're at war with
+                        for (const ai of aiPlayers) {
+                            if (diplomacy.isAtWar(ai.id)) {
+                                enemyUnits.push(...ai.units);
+                            }
+                        }
+                        enemyUnits.push(...gameState.enemyUnits);
+                    } else if (typeof building.owner === 'number') {
+                        // AI tower attacks player units if at war
+                        if (diplomacy.isAtWar(building.owner)) {
+                            enemyUnits.push(...gameState.units);
+                        }
+                    } else {
+                        // Legacy enemy tower
+                        enemyUnits.push(...gameState.units);
+                    }
 
                     for (const enemy of enemyUnits) {
                         if (enemy.hp <= 0) continue;
